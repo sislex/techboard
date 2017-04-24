@@ -1,6 +1,6 @@
 import { AnularPage } from './app.po';
 
-describe('anular App', () => {
+describe('angular App', () => {
   let page: AnularPage;
 
   beforeEach(() => {
