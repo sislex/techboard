@@ -3741,12 +3741,13 @@ h1.page-title{
 .selling-choice > .btn{
 	width:50%;
 	padding:40px 0;
-	text-transform:uppercase;!important;
+	text-transform:uppercase!important;
 }
 .selling-choice > .btn strong{
 	display:block;
 	margin-top:20px;
 }
+
 .selling-choice > .btn i{
 	font-size:70px;
 }
