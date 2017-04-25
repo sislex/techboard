@@ -12,6 +12,8 @@ import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 import { ControlsComponent } from './controls/controls.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { ListComponent } from './list/list.component';
+import {AppRoutingModule} from "./app-routing.module";
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { ListComponent } from './list/list.component';
     BreadCrumbsComponent,
     ControlsComponent,
     LeftMenuComponent,
-    ListComponent
+    ListComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AlertModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
