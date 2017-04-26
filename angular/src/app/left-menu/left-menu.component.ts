@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Http, Response }   from '@angular/http';
+
 @Component({
   selector: 'app-left-menu',
   templateUrl: './left-menu.component.html',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftMenuComponent implements OnInit {
 
-  constructor() { }
+  private menu: object[] = [];
+
+  constructor(private http: Http) {
+
+    this.http.get('http://techboard/catalog').subscribe((data: Response) => {
+      this.menu = data.json();
+    });
+  }
 
   ngOnInit() {
   }
