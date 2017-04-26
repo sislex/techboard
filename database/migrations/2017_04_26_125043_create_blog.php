@@ -15,7 +15,10 @@ class CreateBlog extends Migration
     {
         Schema::create('blog', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->text('description');
+            $table->text('text');
+            $table->text('title');
         });
     }
 
