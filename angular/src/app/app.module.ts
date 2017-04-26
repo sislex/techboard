@@ -14,6 +14,10 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { ListComponent } from './list/list.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { CatalogComponent } from './catalog/catalog.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { CatalogComponent } from './catalog/catalog.component';
     ControlsComponent,
     LeftMenuComponent,
     ListComponent,
-    CatalogComponent
+    CatalogComponent,
+    UserMenuComponent,
+    DashboardComponent,
+    UserDashboardComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,
