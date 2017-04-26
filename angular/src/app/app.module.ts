@@ -22,6 +22,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { LicenseAgreementComponent } from './license-agreement/license-agreement.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { GoodComponent } from './good/good.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { RegistrationComponent } from './registration/registration.component';
     SettingsComponent,
     UserRegistrationComponent,
     LicenseAgreementComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    GoodComponent
   ],
   imports: [
     BrowserModule,
