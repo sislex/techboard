@@ -18,6 +18,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     UserMenuComponent,
     DashboardComponent,
     UserDashboardComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
