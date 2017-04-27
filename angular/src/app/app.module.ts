@@ -23,6 +23,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { LicenseAgreementComponent } from './license-agreement/license-agreement.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { GoodComponent } from './good/good.component';
+import {CatalogService} from "./services/catalog.service";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { GoodComponent } from './good/good.component';
     AlertModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CatalogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

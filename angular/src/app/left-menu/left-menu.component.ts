@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Http, Response }   from '@angular/http';
+import {CatalogService} from "../services/catalog.service";
 
 @Component({
   selector: 'app-left-menu',
@@ -9,15 +9,13 @@ import { Http, Response }   from '@angular/http';
 })
 export class LeftMenuComponent implements OnInit {
 
-  private menu: object[] = [];
-  constructor(private http: Http) {
-
-    this.http.get('http://techboard/catalog').subscribe((data: Response) => {
-      this.menu = data.json();
-    });
-  }
+  private menu;
+  constructor(private catalogService: CatalogService) {}
 
   ngOnInit() {
+    this.catalogService.getAllCategories().then((menu) => {
+      this.menu = menu;
+    });
   }
 
 }

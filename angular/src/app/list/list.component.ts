@@ -12,9 +12,9 @@ export class ListComponent implements OnInit {
 
     constructor(private http: Http) {
         
-        this.http.get('http://techboard/goods').subscribe((data: Response) => {
-            this.goods = data.json();
-        });
+        // this.http.get('http://techboard/goods').subscribe((data: Response) => {
+        //     this.goods = data.json();
+        // });
     }
     
     ngOnInit() {
