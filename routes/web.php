@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/catalog', 'CatalogController@getCatalogJson');
+Route::get('/catalog', 'CatalogController@getCatalogJSON');
+Route::get('/goods', 'GoodsController@getGoodJSON');
 
 
 Auth::routes();

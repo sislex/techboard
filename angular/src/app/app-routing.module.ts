@@ -15,6 +15,7 @@ const ROUTES = [
   {path: 'user-settings', component: UserSettingsComponent},
   {path: 'user-registration', component: UserRegistrationComponent},
   {path: 'good', component: GoodComponent},
+  {path: 'goods', component: CatalogComponent},
 
   {path: '**', component: CatalogComponent}
 ];

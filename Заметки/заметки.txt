@@ -1,0 +1,79 @@
+1) убрать слайдер
+goldenmotors.by
+
+
+МЕню:
+1) каталог (главная страница)
+2) О нас - Контакты
+3) Как разместить объявление
+
+с верху логин или регистрация
+
+
+Описание 
+спецификации
+Видео
+Карта
+
+удалить всё с права кроме телефона
+удалить подходящие машины
+
+
+app:				+
+миню верхнее - top-menu		+
+хлебные крошки - bread-crumbs	+
+виды - controls			+
+
+catalog:			+
+Refine Search - left-menu	+
+список товаров - list		+
+
+user-dashboard:			+
+user-menu			+
+dashboard			+
+
+user-settings:			+
+user-menu			+
+settings			+
+
+user-registration:		+
+license-agreement		+		
+registration			+
+
+good:				+
+
+
+
+
+Создать миграции для каталога
+табл. - catalog:			+
+id	(int)
+name	(string)
+parent_id	(int вторичный ключ)
+text	(text)
+description	(text)
+title	(text)
+order (int)
+
+табл. - goods:	(товары)		+
+id	(int)		+
+name	(string)	+
+catalog_id	(int)	+
+user_id		(int)	+
+description	(text)	+
+text		(text)	+
+title		(text)	+
+video_link	(text)	+
+map		(text)	+
+price		(float)	+
+old_price	(float)	+
+
+
+табл. - blog:	(О нас, контакты и тд)	+
+id		(int)		+
+name		(string)	+
+description	(text)		+
+text		(text)		+
+title		(text)		+
+
+в user добавить телефон (phone)		+
