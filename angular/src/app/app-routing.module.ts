@@ -11,12 +11,12 @@ import {GoodComponent} from "./good/good.component";
 const ROUTES = [
   {path: '', component: CatalogComponent},
   {path: 'catalog', component: CatalogComponent},
+  {path: 'goods', component: CatalogComponent},
   {path: 'user-dashboard', component: UserDashboardComponent},
   {path: 'user-settings', component: UserSettingsComponent},
   {path: 'user-registration', component: UserRegistrationComponent},
   {path: 'good', component: GoodComponent},
-  {path: 'goods', component: CatalogComponent},
-
+    
   {path: '**', component: CatalogComponent}
 ];
 

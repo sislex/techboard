@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {RequestsService} from "../services/requests.service";
+
 
 @Component({
   selector: 'app-registration',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor() { }
+    public name: string;
+    public email: string;
+    public password: string;
+    public confirmPassword: string;
 
-  ngOnInit() {
-  }
+    constructor(private requestsService: RequestsService) { }
+
+    ngOnInit() {
+
+    }
+
+    public registration(name: string, email: string, password: string, confirmPassword: string){
+        console.log(name + '; ' + email + '; ' + password + '; ' + confirmPassword + ';');
+        this.requestsService.registration(name, email, password);
+
+    }
 
 }

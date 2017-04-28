@@ -24,6 +24,8 @@ import { LicenseAgreementComponent } from './license-agreement/license-agreement
 import { RegistrationComponent } from './registration/registration.component';
 import { GoodComponent } from './good/good.component';
 import {CatalogService} from "./services/catalog.service";
+import {GoodsService} from "./services/goods.service";
+import {RequestsService} from "./services/requests.service";
 
 @NgModule({
   declarations: [
@@ -53,7 +55,11 @@ import {CatalogService} from "./services/catalog.service";
     AlertModule,
     AppRoutingModule
   ],
-  providers: [CatalogService],
+  providers: [
+    CatalogService,
+    GoodsService,
+    RequestsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
