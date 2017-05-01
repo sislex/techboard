@@ -18,7 +18,7 @@ export class LeftMenuComponent implements OnInit {
         // console.log("1111111111");
         this.activatedRoute.params.forEach((value) => {
             this.idCategory = value.idCategory;
-            console.log("this.idCategory = " + this.idCategory);
+            // console.log("this.idCategory = " + this.idCategory);
         });
         this.catalogService.getAllCategories(this.idCategory).then((menu) => {
             this.menu = menu;
