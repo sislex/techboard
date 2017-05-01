@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 import {CatalogService} from "../services/catalog.service";
 
@@ -8,21 +9,22 @@ import {CatalogService} from "../services/catalog.service";
   templateUrl: './left-menu.component.html',
   styleUrls: ['./left-menu.component.css']
 })
-export class LeftMenuComponent implements OnInit {
+export class LeftMenuComponent implements OnDestroy {
 
+    private subscription: Subscription;
     private idCategory:string;
     private menu;
-    constructor(private activatedRoute:ActivatedRoute, private router: Router, private catalogService: CatalogService) {}
 
-    ngOnInit() {
-        // console.log("1111111111");
-        this.activatedRoute.params.forEach((value) => {
-            this.idCategory = value.idCategory;
-            // console.log("this.idCategory = " + this.idCategory);
+    constructor(private activatedRoute:ActivatedRoute, private router: Router, private catalogService: CatalogService) {
+        this.subscription = activatedRoute.params.subscribe(params => {
+            this.catalogService.getAllCategories(params['idCategory']).then((menu) => {
+                this.menu = menu;
+            });
         });
-        this.catalogService.getAllCategories(this.idCategory).then((menu) => {
-            this.menu = menu;
-        });
+    }
+
+    ngOnDestroy(){
+        this.subscription.unsubscribe();
     }
 
 }

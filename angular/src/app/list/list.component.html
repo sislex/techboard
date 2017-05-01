@@ -13,17 +13,17 @@
             <!-- Result Item -->
             <div *ngFor="let value of goods" class="result-item format-standard">
                 <div class="result-item-image">
-                    <a href="vehicle-details.html" class="media-box"><img
+                    <a [routerLink]="'/' + 'good' + '/' + value.id" class="media-box"><img
                             src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
                     <span class="label label-default vehicle-age">2014</span>
                     <span class="label label-success premium-listing">Premium Listing</span>
                     <div class="result-item-view-buttons">
                         <a href="{{value.video_link}}" data-rel="prettyPhoto"><i class="fa fa-play"></i> View video</a>
-                        <a href="vehicle-details.html"><i class="fa fa-plus"></i> View details</a>
+                        <a [routerLink]="'/' + 'good' + '/' + value.id"><i class="fa fa-plus"></i> View details</a>
                     </div>
                 </div>
                 <div class="result-item-in">
-                    <h4 class="result-item-title"><a href="vehicle-details.html">{{value.name}}</a></h4>
+                    <h4 class="result-item-title"><a [routerLink]="'/' + 'good' + '/' + value.id">{{value.name}}</a></h4>
                     <div class="result-item-cont">
                         <div class="result-item-block col1">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus.

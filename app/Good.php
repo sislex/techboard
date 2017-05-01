@@ -27,4 +27,10 @@ class Good extends Model
         //Chasti_tela::where('nazvanie', '=', 'Руки')->update(['nazvanie' => 'Шеяqqq', 'poradkovii_nomer' => '1', 'funkcii' => 'werwer']);//Редактирование с помощью WHERE
         return $this->where('catalog_id', '=', $category_id )->get()->toArray();
     }
+    public function getGoodByCategoryId($id){
+        return $this->where('id', '=', $id )->get()->toArray();
+    }
+    public function getGoodByUser($user_id){
+        return $this->where('user_id', '=', $user_id )->get()->toArray();
+    }
 }

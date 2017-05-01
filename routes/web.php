@@ -15,6 +15,9 @@ Route::get('/', function () {
 });
 
 Route::post('/api/goods', 'GoodsController@getGoodJSON');
+Route::post('/api/good', 'GoodsController@getOneGoodJSON');
+Route::post('/api/user-dashboard-goods', 'GoodsController@getUserGoodJSON');
+Route::post('/api/users', 'UsersController@getUserJSON');
 
 Route::post('/api/catalog', 'CatalogController@getCatalogJSON');
 
