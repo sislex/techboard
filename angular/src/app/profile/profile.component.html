@@ -10,7 +10,7 @@
                     <li><a data-toggle="tab" href="#changepassword" aria-controls="changepassword" role="tab">Change
                         Password</a></li>
                 </ul>
-                <form>
+                <form method="post" name="form" (ngSubmit)="f.form.valid && edit(value.name, value.email, value.phone)" #f="ngForm" novalidate>
                     <div class="tab-content">
                         <!-- PROFIE PERSONAL INFO -->
 
@@ -18,23 +18,24 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label>First name*</label>
-                                            <input type="text" class="form-control" placeholder="" required
-                                                   [(ngModel)]="value.name" [ngModelOptions]="{standalone: true}">
+                                        <div class="col-md-6 form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                                            <label for="name">Имя*</label>
+                                            <input type="text" id="name" class="form-control" name="name" placeholder="Имя" required
+                                                   [(ngModel)]="value.name" #name="ngModel">
+                                            <div *ngIf="f.submitted && !name.valid" class="help-block">Введите имя</div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Email*</label>
-                                            <input type="text" class="form-control" placeholder="mail@example.com"
-                                                   required [(ngModel)]="value.email"
-                                                   [ngModelOptions]="{standalone: true}">
+                                        <div class="col-md-6 form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                                            <label for="email">Email*</label>
+                                            <input type="text" id="email" name="email" class="form-control" placeholder="Email"
+                                                   required [(ngModel)]="value.email" #email="ngModel">
+                                            <div *ngIf="f.submitted && !name.valid" class="help-block">Введите email</div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" placeholder="000-00-0000"
-                                                   [(ngModel)]="value.phone" [ngModelOptions]="{standalone: true}">
+                                        <div class="col-md-6 form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" id="phone" name="phone" class="form-control" placeholder="000-00-0000"
+                                                   [(ngModel)]="value.phone">
                                         </div>
                                     </div>
 
@@ -81,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-info" (click)="updateProfile(value.id, value.name, value.email, value.phone)">Update details</button>
+                    <button type="submit" [disabled]="loading" class="btn btn-info">Изменить</button>
                 </form>
             </div>
         </div>

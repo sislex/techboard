@@ -22,4 +22,19 @@ class UsersController extends Controller
             ;
 
     }
+
+    public function updateUser(){
+        $input = \Request::all();
+
+        $Users = new Users();
+        $goodResponse = $Users->updateUser($input['id'], $input['name'], $input['email'], $input['phone']);
+        return response()
+            ->json($goodResponse)
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Max-Age', '1000')
+            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
+            ;
+
+    }
 }

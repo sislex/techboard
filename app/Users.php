@@ -21,4 +21,8 @@ class Users extends Model
     public function getUser($id){
         return $this->where('id', '=', $id )->get()->toArray();
     }
+    public function updateUser($id, $name, $email, $phone){
+        $this->find($id)->update(['name' => $name, 'email' => $email, 'phone' => $phone]);//Редактирование только по ID
+        return 1;
+    }
 }
