@@ -11,7 +11,7 @@ import {GoodComponent} from "./good/good.component";
 const ROUTES = [
   {path: '', component: CatalogComponent},
   {path: 'catalog', component: CatalogComponent},
-  {path: 'goods', component: CatalogComponent},
+  {path: 'goods/:idCategory', component: CatalogComponent},
   {path: 'user-dashboard', component: UserDashboardComponent},
   {path: 'user-settings', component: UserSettingsComponent},
   {path: 'user-registration', component: UserRegistrationComponent},

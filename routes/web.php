@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/goods', 'GoodsController@getGoodJSON');
+Route::get('/api/goods', 'GoodsController@getGoodJSON');
 
 Route::post('/api/catalog', 'CatalogController@getCatalogJSON');
 

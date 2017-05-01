@@ -23,4 +23,8 @@ class Good extends Model
     public function getGoodJSON(){
         return $this->get()->toArray();
     }
+    public function getGoodsByCategoryId($category_id){
+        //Chasti_tela::where('nazvanie', '=', 'Руки')->update(['nazvanie' => 'Шеяqqq', 'poradkovii_nomer' => '1', 'funkcii' => 'werwer']);//Редактирование с помощью WHERE
+        return $this->where('catalog_id', '=', $category_id )->get()->toArray();
+    }
 }

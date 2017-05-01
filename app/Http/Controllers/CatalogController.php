@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 class CatalogController extends Controller
 {
     public function getCatalogJSON(){
+        $input = \Request::all();
+//        dd($input["id"]);
+
         $Catalog = new Catalog();
         $catalogResponse = $Catalog->getCatalogJSON();
         return response()

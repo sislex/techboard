@@ -6,16 +6,25 @@ export class GoodsService {
 
     constructor(private http: Http) { }
 
-    public getAllGoods(){
+    public getAllGoods(idCategory:string){
         return new Promise((resolve, reject) =>{
-            this.http.get('http://techboard/goods').subscribe((data: Response) => {
+            let headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                // 'X-CSRF-TOKEN': 'nLkKnC7B2moeaRChETcgEJqC6oN5qKaVM6YRi4t3',
+            });
+
+            var params = new URLSearchParams();
+            params.set('catalog_id', idCategory);
+
+            this.http.post('http://techboard/api/goods', params.toString()).subscribe((data: Response) => {
+                // this.menu = data.json();
                 resolve(data.json());
             }, error => {
-                console.log(1);
                 console.log(error);
                 reject(error);
             });
         });
+        
     }
     
     

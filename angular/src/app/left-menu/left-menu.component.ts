@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {CatalogService} from "../services/catalog.service";
 
@@ -9,13 +10,19 @@ import {CatalogService} from "../services/catalog.service";
 })
 export class LeftMenuComponent implements OnInit {
 
-  private menu;
-  constructor(private catalogService: CatalogService) {}
+    private idCategory:string;
+    private menu;
+    constructor(private activatedRoute:ActivatedRoute, private router: Router, private catalogService: CatalogService) {}
 
-  ngOnInit() {
-    this.catalogService.getAllCategories().then((menu) => {
-      this.menu = menu;
-    });
-  }
+    ngOnInit() {
+        // console.log("1111111111");
+        this.activatedRoute.params.forEach((value) => {
+            this.idCategory = value.idCategory;
+            console.log("this.idCategory = " + this.idCategory);
+        });
+        this.catalogService.getAllCategories(this.idCategory).then((menu) => {
+            this.menu = menu;
+        });
+    }
 
 }
