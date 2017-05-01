@@ -1,0 +1,1461 @@
+Index: angular/src/app/services/good.service.spec.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/services/good.service.spec.ts	(revision )
++++ angular/src/app/services/good.service.spec.ts	(revision )
+@@ -0,0 +1,15 @@
++import { TestBed, inject } from '@angular/core/testing';
++
++import { GoodService } from './good.service';
++
++describe('GoodService', () => {
++  beforeEach(() => {
++    TestBed.configureTestingModule({
++      providers: [GoodService]
++    });
++  });
++
++  it('should ...', inject([GoodService], (service: GoodService) => {
++    expect(service).toBeTruthy();
++  }));
++});
+Index: angular/src/app/app.module.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/app.module.ts	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/app.module.ts	(revision )
+@@ -1,65 +1,70 @@
+-import { BrowserModule } from '@angular/platform-browser';
++import {BrowserModule} from '@angular/platform-browser';
+-import { NgModule } from '@angular/core';
++import {NgModule} from '@angular/core';
+-import { FormsModule } from '@angular/forms';
++import {FormsModule} from '@angular/forms';
+-import { HttpModule } from '@angular/http';
++import {HttpModule} from '@angular/http';
+-import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
++import {AlertModule} from 'ng2-bootstrap/ng2-bootstrap';
+ 
+-import { AppComponent } from './app.component';
++import {AppComponent} from './app.component';
+-import { HeaderComponent } from './header/header.component';
++import {HeaderComponent} from './header/header.component';
+-import { FooterComponent } from './footer/footer.component';
++import {FooterComponent} from './footer/footer.component';
+-import { TopMenuComponent } from './top-menu/top-menu.component';
++import {TopMenuComponent} from './top-menu/top-menu.component';
+-import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
++import {BreadCrumbsComponent} from './bread-crumbs/bread-crumbs.component';
+-import { ControlsComponent } from './controls/controls.component';
++import {ControlsComponent} from './controls/controls.component';
+-import { LeftMenuComponent } from './left-menu/left-menu.component';
++import {LeftMenuComponent} from './left-menu/left-menu.component';
+-import { ListComponent } from './list/list.component';
++import {ListComponent} from './list/list.component';
+ import {AppRoutingModule} from "./app-routing.module";
+-import { CatalogComponent } from './catalog/catalog.component';
++import {CatalogComponent} from './catalog/catalog.component';
+-import { UserMenuComponent } from './user-menu/user-menu.component';
++import {UserMenuComponent} from './user-menu/user-menu.component';
+-import { DashboardComponent } from './dashboard/dashboard.component';
++import {DashboardComponent} from './dashboard/dashboard.component';
+-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
++import {UserDashboardComponent} from './user-dashboard/user-dashboard.component';
+-import { UserSettingsComponent } from './user-settings/user-settings.component';
++import {UserSettingsComponent} from './user-settings/user-settings.component';
+-import { SettingsComponent } from './settings/settings.component';
++import {SettingsComponent} from './settings/settings.component';
+-import { UserRegistrationComponent } from './user-registration/user-registration.component';
++import {UserRegistrationComponent} from './user-registration/user-registration.component';
+-import { LicenseAgreementComponent } from './license-agreement/license-agreement.component';
++import {LicenseAgreementComponent} from './license-agreement/license-agreement.component';
+-import { RegistrationComponent } from './registration/registration.component';
++import {RegistrationComponent} from './registration/registration.component';
+-import { GoodComponent } from './good/good.component';
++import {GoodComponent} from './good/good.component';
+ import {CatalogService} from "./services/catalog.service";
+ import {GoodsService} from "./services/goods.service";
+ import {RequestsService} from "./services/requests.service";
++import {GoodService} from "./services/good.service";
++import {DashboardService} from "./services/dashboard.service";
+ 
+ @NgModule({
+-  declarations: [
+-    AppComponent,
+-    HeaderComponent,
+-    FooterComponent,
+-    TopMenuComponent,
+-    BreadCrumbsComponent,
+-    ControlsComponent,
+-    LeftMenuComponent,
+-    ListComponent,
+-    CatalogComponent,
+-    UserMenuComponent,
+-    DashboardComponent,
+-    UserDashboardComponent,
+-    UserSettingsComponent,
+-    SettingsComponent,
+-    UserRegistrationComponent,
+-    LicenseAgreementComponent,
+-    RegistrationComponent,
+-    GoodComponent
+-  ],
+-  imports: [
+-    BrowserModule,
+-    FormsModule,
+-    HttpModule,
+-    AlertModule,
+-    AppRoutingModule
+-  ],
+-  providers: [
+-    CatalogService,
+-    GoodsService,
++    declarations: [
++        AppComponent,
++        HeaderComponent,
++        FooterComponent,
++        TopMenuComponent,
++        BreadCrumbsComponent,
++        ControlsComponent,
++        LeftMenuComponent,
++        ListComponent,
++        CatalogComponent,
++        UserMenuComponent,
++        DashboardComponent,
++        UserDashboardComponent,
++        UserSettingsComponent,
++        SettingsComponent,
++        UserRegistrationComponent,
++        LicenseAgreementComponent,
++        RegistrationComponent,
++        GoodComponent
++    ],
++    imports: [
++        BrowserModule,
++        FormsModule,
++        HttpModule,
++        AlertModule,
++        AppRoutingModule
++    ],
++    providers: [
++        CatalogService,
++        GoodsService,
+-    RequestsService
++        RequestsService,
++        GoodService,
++        DashboardService
+-  ],
+-  bootstrap: [AppComponent]
++    ],
++    bootstrap: [AppComponent]
+ })
+-export class AppModule { }
++export class AppModule {
++}
+Index: angular/src/app/dashboard/dashboard.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/dashboard/dashboard.component.ts	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/dashboard/dashboard.component.ts	(revision )
+@@ -1,15 +1,30 @@
+-import { Component, OnInit } from '@angular/core';
++import {Component, OnDestroy} from '@angular/core';
++import {DashboardService} from "../services/dashboard.service";
++import {ActivatedRoute, Router} from '@angular/router';
++import {Subscription} from 'rxjs/Subscription';
+ 
+ @Component({
+-  selector: 'app-dashboard',
+-  templateUrl: './dashboard.component.html',
+-  styleUrls: ['./dashboard.component.css']
++    selector: 'app-dashboard',
++    templateUrl: './dashboard.component.html',
++    styleUrls: ['./dashboard.component.css']
+ })
+-export class DashboardComponent implements OnInit {
++export class DashboardComponent implements OnDestroy {
+ 
+-  constructor() { }
++    private subscription:Subscription;
+ 
+-  ngOnInit() {
++    private user_id;
++    private goods;
++
++    constructor(private dashboardService:DashboardService, private activatedRoute:ActivatedRoute, private router:Router) {
++        this.subscription = activatedRoute.params.subscribe(params => {
++            this.dashboardService.getAllGoods(params['user_id']).then((goods) => {
++                this.goods = goods;
++            });
++        });
++    }
++
++    ngOnDestroy() {
++        this.subscription.unsubscribe();
+-  }
++    }
+ 
+ }
+Index: angular/src/app/dashboard/dashboard.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/dashboard/dashboard.component.html	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/dashboard/dashboard.component.html	(revision )
+@@ -1,176 +1,205 @@
+ <div class="col-md-9 col-sm-8">
+-  <h2>Dashboard</h2>
++    <h2>Dashboard</h2>
+-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
++    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis
++        fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur
++        adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel.
++        Donec vel mauris quam.</p>
+-  <div class="dashboard-block">
+-    <div class="dashboard-block-head">
+-      <a href="user-dashboard-saved-cars.html" class="btn btn-default btn-sm pull-right">See all Ads (2)</a>
+-      <h3>My Ads</h3>
+-    </div>
+-    <div class="table-responsive">
+-      <table class="table table-bordered dashboard-tables saved-cars-table">
+-        <thead>
+-        <tr>
+-          <td>&nbsp;</td>
+-          <td>Description</td>
+-          <td>Price/Status</td>
+-          <td>Timestamp</td>
+-          <td>Payment</td>
+-          <td>Actions</td>
+-        </tr>
+-        </thead>
+-        <tbody>
++    <div class="dashboard-block">
++        <div class="dashboard-block-head">
++            <a href="user-dashboard-saved-cars.html" class="btn btn-default btn-sm pull-right">See all Ads (2)</a>
++            <h3>My Ads</h3>
++        </div>
++        <div class="table-responsive">
++            <table class="table table-bordered dashboard-tables saved-cars-table">
++                <thead>
++                    <tr>
++                        <td>&nbsp;</td>
++                        <td>Description</td>
++                        <td>Price/Status</td>
++                        <td>Timestamp</td>
++                        <td>Payment</td>
++                        <td>Actions</td>
++                    </tr>
++                </thead>
++                <tbody>
+-        <tr>
++                <tr *ngFor="let value of goods">
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td>
+-            <!-- Result -->
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td>
++                        <!-- Result -->
+-            <a href="vehicle-details.html" class="car-image"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                        <a href="vehicle-details.html" class="car-image"><img
++                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
+-            <div class="search-find-results">
++                        <div class="search-find-results">
+-              <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe 2dr Auto 6sp 3.0i [MY10]</a></h5>
++                            <h5><a href="vehicle-details.html">{{value.name}}</a></h5>
+-              <ul class="inline">
+-                <li>2 door Coupe</li>
+-                <li>6 cyl, 3.0 L Petrol</li>
+-                <li>6 speed Automatic</li>
+-                <li>Rear Wheel Drive</li>
+-              </ul>
+-            </div>
+-          </td>
++                            <ul class="inline">
++                                <li>2 door Coupe</li>
++                                <li>6 cyl, 3.0 L Petrol</li>
++                                <li>6 speed Automatic</li>
++                                <li>Rear Wheel Drive</li>
++                            </ul>
++                        </div>
++                    </td>
+-          <td><span class="price">$40,990</span></td>
++                    <td><span class="price">{{value.price}}</span></td>
+-          <td><span class="text-success">Created on</span> 09/12/14 @ 12:09am</td>
+-          <td align="center"><span class="label label-warning">Pending payment</span></td>
+-          <td align="center">
++                    <td><span class="text-success">Created on</span> 09/12/14 @ 12:09am</td>
++                    <td align="center"><span class="label label-warning">Pending payment</span></td>
++                    <td align="center">
+-            <button class="text-default" title="Archive"><i class="fa fa-archive"></i></button>                                                <button class="text-danger" title="Delete"><i class="fa fa-times"></i></button>
++                        <button class="text-default" title="Archive"><i class="fa fa-archive"></i></button>
++                        <button class="text-danger" title="Delete"><i class="fa fa-times"></i></button>
+-          </td>
+-        </tr>
+-        </tbody>
+-      </table>
+-    </div>
+-    <button class="btn btn-default btn-sm disabled">Delete Selected</button>
+-  </div>
+-  <div class="dashboard-block">
+-    <div class="dashboard-block-head">
+-      <a href="user-dashboard-saved-cars.html" class="btn btn-default btn-sm pull-right">See all cars (12)</a>
+-      <h3>Saved Cars</h3>
+-    </div>
+-    <div class="table-responsive">
+-      <table class="table table-bordered dashboard-tables saved-cars-table">
+-        <thead>
+-        <tr>
+-          <td>&nbsp;</td>
+-          <td>Description</td>
+-          <td>Price/Status</td>
+-          <td>Timestamp</td>
+-          <td>Actions</td>
+-        </tr>
+-        </thead>
+-        <tbody>
+-        <tr>
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td>
+-            <!-- Result -->
++                    </td>
++                </tr>
++                </tbody>
++            </table>
++        </div>
++        <button class="btn btn-default btn-sm disabled">Delete Selected</button>
++    </div>
++    <div class="dashboard-block">
++        <div class="dashboard-block-head">
++            <a href="user-dashboard-saved-cars.html" class="btn btn-default btn-sm pull-right">See all cars (12)</a>
++            <h3>Saved Cars</h3>
++        </div>
++        <div class="table-responsive">
++            <table class="table table-bordered dashboard-tables saved-cars-table">
++                <thead>
++                <tr>
++                    <td>&nbsp;</td>
++                    <td>Description</td>
++                    <td>Price/Status</td>
++                    <td>Timestamp</td>
++                    <td>Actions</td>
++                </tr>
++                </thead>
++                <tbody>
++                <tr>
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td>
++                        <!-- Result -->
+-            <a href="vehicle-details.html" class="car-image"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                        <a href="vehicle-details.html" class="car-image"><img
++                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
+-            <div class="search-find-results">
+-              <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe 2dr Auto 6sp 3.0i [MY10]</a></h5>
+-              <ul class="inline">
+-                <li>2 door Coupe</li>
+-                <li>6 cyl, 3.0 L Petrol</li>
+-                <li>6 speed Automatic</li>
+-                <li>Rear Wheel Drive</li>
+-              </ul>
+-            </div>
+-          </td>
+-          <td><span class="price">$40,990</span></td>
+-          <td><span class="text-success">Saved on</span> 09/12/14 @ 12:09am</td>
++                        <div class="search-find-results">
++                            <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe 2dr Auto 6sp 3.0i [MY10]</a></h5>
++                            <ul class="inline">
++                                <li>2 door Coupe</li>
++                                <li>6 cyl, 3.0 L Petrol</li>
++                                <li>6 speed Automatic</li>
++                                <li>Rear Wheel Drive</li>
++                            </ul>
++                        </div>
++                    </td>
++                    <td><span class="price">$40,990</span></td>
++                    <td><span class="text-success">Saved on</span> 09/12/14 @ 12:09am</td>
+-          <td align="center"><button class="text-danger"><i class="fa fa-times"></i></button></td>
++                    <td align="center">
++                        <button class="text-danger"><i class="fa fa-times"></i></button>
++                    </td>
+-        </tr>
+-        <tr>
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td>
+-            <!-- Result -->
++                </tr>
++                <tr>
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td>
++                        <!-- Result -->
+-            <a href="vehicle-details.html" class="car-image"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                        <a href="vehicle-details.html" class="car-image"><img
++                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
+-            <div class="search-find-results">
+-              <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe</a></h5>
+-              <ul class="inline">
+-                <li>2 door Coupe</li>
+-                <li>6 cyl, 3.0 L Petrol</li>
+-                <li>6 speed Automatic</li>
+-                <li>Rear Wheel Drive</li>
+-              </ul>
+-            </div>
+-          </td>
+-          <td><span class="price">$40,990</span></td>
+-          <td><span class="text-success">Saved on</span> 08/12/14 @ 12:09am</td>
++                        <div class="search-find-results">
++                            <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe</a></h5>
++                            <ul class="inline">
++                                <li>2 door Coupe</li>
++                                <li>6 cyl, 3.0 L Petrol</li>
++                                <li>6 speed Automatic</li>
++                                <li>Rear Wheel Drive</li>
++                            </ul>
++                        </div>
++                    </td>
++                    <td><span class="price">$40,990</span></td>
++                    <td><span class="text-success">Saved on</span> 08/12/14 @ 12:09am</td>
+-          <td align="center"><button class="text-danger"><i class="fa fa-times"></i></button></td>
++                    <td align="center">
++                        <button class="text-danger"><i class="fa fa-times"></i></button>
++                    </td>
+-        </tr>
+-        <tr>
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td>
+-            <!-- Result -->
++                </tr>
++                <tr>
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td>
++                        <!-- Result -->
+-            <a href="vehicle-details.html" class="car-image"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                        <a href="vehicle-details.html" class="car-image"><img
++                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
+-            <div class="search-find-results">
+-              <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe 2dr Auto 6sp 3.0i</a></h5>
+-              <ul class="inline">
+-                <li>2 door Coupe</li>
+-                <li>6 cyl, 3.0 L Petrol</li>
+-                <li>6 speed Automatic</li>
+-                <li>Rear Wheel Drive</li>
+-              </ul>
+-            </div>
+-          </td>
+-          <td><span class="price">$40,990</span></td>
+-          <td><span class="text-success">Saved on</span> 06/12/14 @ 12:09am</td>
++                        <div class="search-find-results">
++                            <h5><a href="vehicle-details.html">2010 BMW 125i E82 Coupe 2dr Auto 6sp 3.0i</a></h5>
++                            <ul class="inline">
++                                <li>2 door Coupe</li>
++                                <li>6 cyl, 3.0 L Petrol</li>
++                                <li>6 speed Automatic</li>
++                                <li>Rear Wheel Drive</li>
++                            </ul>
++                        </div>
++                    </td>
++                    <td><span class="price">$40,990</span></td>
++                    <td><span class="text-success">Saved on</span> 06/12/14 @ 12:09am</td>
+-          <td align="center"><button class="text-danger"><i class="fa fa-times"></i></button></td>
++                    <td align="center">
++                        <button class="text-danger"><i class="fa fa-times"></i></button>
++                    </td>
+-        </tr>
+-        </tbody>
+-      </table>
+-    </div>
+-    <button class="btn btn-default btn-sm disabled">Delete Selected</button>
+-    <button class="btn btn-default btn-sm disabled">Compare Selected</button>
+-  </div>
+-  <div class="dashboard-block">
+-    <div class="dashboard-block-head">
+-      <a href="user-dashboard-saved-cars.html" class="btn btn-default btn-sm pull-right">See all searches (5)</a>
+-      <h3>Saved Searches</h3>
+-    </div>
+-    <div class="table-responsive">
+-      <table class="table table-bordered dashboard-tables saved-searches-table">
+-        <thead>
+-        <tr>
+-          <td>&nbsp;</td>
+-          <td>Custom search name</td>
+-          <td>Details</td>
+-          <td>Receive alerts</td>
+-          <td>Timestamp</td>
+-          <td>Actions</td>
+-        </tr>
+-        </thead>
+-        <tbody>
+-        <tr>
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td><a href="#" class="search-name">Search name</a></td>
+-          <td>Donec facilisis fermentum sem, ac viverra ante luctus vel.</td>
++                </tr>
++                </tbody>
++            </table>
++        </div>
++        <button class="btn btn-default btn-sm disabled">Delete Selected</button>
++        <button class="btn btn-default btn-sm disabled">Compare Selected</button>
++    </div>
++    <div class="dashboard-block">
++        <div class="dashboard-block-head">
++            <a href="user-dashboard-saved-cars.html" class="btn btn-default btn-sm pull-right">See all searches (5)</a>
++            <h3>Saved Searches</h3>
++        </div>
++        <div class="table-responsive">
++            <table class="table table-bordered dashboard-tables saved-searches-table">
++                <thead>
++                <tr>
++                    <td>&nbsp;</td>
++                    <td>Custom search name</td>
++                    <td>Details</td>
++                    <td>Receive alerts</td>
++                    <td>Timestamp</td>
++                    <td>Actions</td>
++                </tr>
++                </thead>
++                <tbody>
++                <tr>
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td><a href="#" class="search-name">Search name</a></td>
++                    <td>Donec facilisis fermentum sem, ac viverra ante luctus vel.</td>
+-          <td><a href="#"><select class="form-control selectpicker input-sm"><option>Enable</option><option>Disable</option></select></a></td>
++                    <td><a href="#"><select class="form-control selectpicker input-sm">
++                        <option>Enable</option>
++                        <option>Disable</option>
++                    </select></a></td>
+-          <td><span class="text-success">Saved on</span> 04/11/14 @ 12:09am</td>
++                    <td><span class="text-success">Saved on</span> 04/11/14 @ 12:09am</td>
+-          <td align="center"><button class="text-danger"><i class="fa fa-times"></i></button></td>
++                    <td align="center">
++                        <button class="text-danger"><i class="fa fa-times"></i></button>
++                    </td>
+-        </tr>
+-        <tr>
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td><a href="#" class="search-name">Search name</a></td>
+-          <td>&nbsp;</td>
++                </tr>
++                <tr>
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td><a href="#" class="search-name">Search name</a></td>
++                    <td>&nbsp;</td>
+-          <td><a href="#"><select class="form-control selectpicker input-sm"><option>Enable</option><option>Disable</option></select></a></td>
++                    <td><a href="#"><select class="form-control selectpicker input-sm">
++                        <option>Enable</option>
++                        <option>Disable</option>
++                    </select></a></td>
+-          <td><span class="text-success">Saved on</span> 04/11/14 @ 12:09am</td>
++                    <td><span class="text-success">Saved on</span> 04/11/14 @ 12:09am</td>
+-          <td align="center"><button class="text-danger"><i class="fa fa-times"></i></button></td>
++                    <td align="center">
++                        <button class="text-danger"><i class="fa fa-times"></i></button>
++                    </td>
+-        </tr>
+-        <tr>
+-          <td valign="middle"><input type="checkbox"></td>
+-          <td><a href="#" class="search-name">Search name</a></td>
+-          <td>Donec facilisis fermentum sem, ac viverra ante luctus vel.</td>
++                </tr>
++                <tr>
++                    <td valign="middle"><input type="checkbox"></td>
++                    <td><a href="#" class="search-name">Search name</a></td>
++                    <td>Donec facilisis fermentum sem, ac viverra ante luctus vel.</td>
+-          <td><a href="#"><select class="form-control selectpicker input-sm"><option>Enable</option><option>Disable</option></select></a></td>
++                    <td><a href="#"><select class="form-control selectpicker input-sm">
++                        <option>Enable</option>
++                        <option>Disable</option>
++                    </select></a></td>
+-          <td><span class="text-success">Saved on</span> 04/11/14 @ 12:09am</td>
++                    <td><span class="text-success">Saved on</span> 04/11/14 @ 12:09am</td>
+-          <td align="center"><button class="text-danger"><i class="fa fa-times"></i></button></td>
++                    <td align="center">
++                        <button class="text-danger"><i class="fa fa-times"></i></button>
++                    </td>
+-        </tr>
+-        </tbody>
+-      </table>
+-    </div>
+-    <button class="btn btn-default btn-sm disabled">Delete Selected</button>
+-  </div>
++                </tr>
++                </tbody>
++            </table>
++        </div>
++        <button class="btn btn-default btn-sm disabled">Delete Selected</button>
++    </div>
+ </div>
+\ No newline at end of file
+Index: angular/src/app/app-routing.module.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/app-routing.module.ts	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/app-routing.module.ts	(revision )
+@@ -12,10 +12,10 @@
+   {path: '', component: CatalogComponent},
+   {path: 'catalog', component: CatalogComponent},
+   {path: 'goods/:idCategory', component: CatalogComponent},
+-  {path: 'user-dashboard', component: UserDashboardComponent},
++  {path: 'user-dashboard/:user_id', component: UserDashboardComponent},
+   {path: 'user-settings', component: UserSettingsComponent},
+   {path: 'user-registration', component: UserRegistrationComponent},
+-  {path: 'good', component: GoodComponent},
++  {path: 'good/:id', component: GoodComponent},
+     
+   {path: '**', component: CatalogComponent}
+ ];
+Index: app/Http/Controllers/GoodsController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/Http/Controllers/GoodsController.php	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ app/Http/Controllers/GoodsController.php	(revision )
+@@ -10,7 +10,6 @@
+ {
+     public function getGoodJSON(){
+         $input = \Request::all();
+-        $input['catalog_id'] = 2;
+ 
+         $Good = new Good();
+         $goodResponse = $Good->getGoodsByCategoryId($input['catalog_id']);
+@@ -23,4 +22,35 @@
+             ;
+ 
+     }
++
++    public function getOneGoodJSON(){
++        $input = \Request::all();
++
++        $Good = new Good();
++        $goodResponse = $Good->getGoodByCategoryId($input['id']);
++        return response()
++            ->json($goodResponse)
++            ->header('Access-Control-Allow-Origin', '*')
++            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
++            ->header('Access-Control-Max-Age', '1000')
++            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
++            ;
++
++    }
++
++    public function getUserGoodJSON(){
++        $input = \Request::all();
++
++        $Good = new Good();
++        $goodResponse = $Good->getGoodByUser($input['user_id']);
++        return response()
++            ->json($goodResponse)
++            ->header('Access-Control-Allow-Origin', '*')
++            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
++            ->header('Access-Control-Max-Age', '1000')
++            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
++            ;
++
++    }
++
+ }
+Index: angular/src/app/list/list.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/list/list.component.html	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/list/list.component.html	(revision )
+@@ -13,17 +13,17 @@
+             <!-- Result Item -->
+             <div *ngFor="let value of goods" class="result-item format-standard">
+                 <div class="result-item-image">
+-                    <a href="vehicle-details.html" class="media-box"><img
++                    <a [routerLink]="'/' + 'good' + '/' + value.id" class="media-box"><img
+                             src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
+                     <span class="label label-default vehicle-age">2014</span>
+                     <span class="label label-success premium-listing">Premium Listing</span>
+                     <div class="result-item-view-buttons">
+                         <a href="{{value.video_link}}" data-rel="prettyPhoto"><i class="fa fa-play"></i> View video</a>
+-                        <a href="vehicle-details.html"><i class="fa fa-plus"></i> View details</a>
++                        <a [routerLink]="'/' + 'good' + '/' + value.id"><i class="fa fa-plus"></i> View details</a>
+                     </div>
+                 </div>
+                 <div class="result-item-in">
+-                    <h4 class="result-item-title"><a href="vehicle-details.html">{{value.name}}</a></h4>
++                    <h4 class="result-item-title"><a [routerLink]="'/' + 'good' + '/' + value.id">{{value.name}}</a></h4>
+                     <div class="result-item-cont">
+                         <div class="result-item-block col1">
+                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus.
+\ No newline at end of file
+Index: angular/src/app/services/good.service.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/services/good.service.ts	(revision )
++++ angular/src/app/services/good.service.ts	(revision )
+@@ -0,0 +1,30 @@
++import { Injectable } from '@angular/core';
++import {Http, Response, Headers, URLSearchParams} from '@angular/http';
++
++@Injectable()
++export class GoodService {
++
++    constructor(private http:Http) {
++    }
++
++    public getAllGoods(id:string) {
++        return new Promise((resolve, reject) => {
++            let headers = new Headers({
++                'Content-Type': 'application/x-www-form-urlencoded'
++            });
++
++            var params = new URLSearchParams();
++            params.set('id', id);
++            console.log(id);
++
++            this.http.post('http://techboard/api/good', params.toString(), {headers: headers}).subscribe((data:Response) => {
++                resolve(data.json());
++            }, error => {
++                console.log(error);
++                reject(error);
++            });
++        });
++
++    }
++
++}
+Index: angular/src/app/good/good.component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/good/good.component.html	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/good/good.component.html	(revision )
+@@ -1,244 +1,293 @@
+ <div class="main" role="main">
+-  <div id="content" class="content full">
+-    <div class="container">
+-      <!-- Vehicle Details -->
+-      <article class="single-vehicle-details">
++    <div id="content" class="content full">
++        <div class="container">
++            <!-- Vehicle Details -->
++            <article class="single-vehicle-details">
++                <div *ngFor="let value of good">
+-        <div class="single-vehicle-title">
+-          <span class="badge-premium-listing">Premium listing</span>
++                    <div class="single-vehicle-title">
++                        <span class="badge-premium-listing">Premium listing</span>
+-          <h2 class="post-title">Nissan Terrano single hand driven</h2>
++                        <h2 class="post-title">{{value.name}}</h2>
+-        </div>
+-        <div class="single-listing-actions">
+-          <div class="btn-group pull-right" role="group">
++                    </div>
++                    <div class="single-listing-actions">
++                        <div class="btn-group pull-right" role="group">
+-            <a href="#" class="btn btn-default" title="Save this car"><i class="fa fa-star-o"></i> <span>Save this car</span></a>
+-            <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-default" title="Request more info"><i class="fa fa-info"></i> <span>Request more info</span></a>
+-            <a href="javascript:void(0)" onclick="window.print();" class="btn btn-default" title="Print"><i class="fa fa-print"></i> <span>Print</span></a>
++                            <a href="#" class="btn btn-default" title="Save this car"><i class="fa fa-star-o"></i>
++                                <span>Save this car</span></a>
++                            <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-default"
++                               title="Request more info"><i class="fa fa-info"></i> <span>Request more info</span></a>
++                            <a href="javascript:void(0)" onclick="window.print();" class="btn btn-default"
++                               title="Print"><i
++                                    class="fa fa-print"></i> <span>Print</span></a>
+-          </div>
++                        </div>
+-          <div class="btn btn-info price">$88000</div>
++                        <div class="btn btn-info price">{{value.price}}</div>
+-        </div>
+-        <div class="row">
+-          <div class="col-md-8">
+-            <div class="single-listing-images">
+-              <div class="featured-image format-image">
++                    </div>
++                    <div class="row">
++                        <div class="col-md-8">
++                            <div class="single-listing-images">
++                                <div class="featured-image format-image">
+-                <a href="http://placehold.it/890x600&amp;text=IMAGE+PLACEHOLDER" data-rel="prettyPhoto[gallery]" class="media-box"><img src="http://placehold.it/890x600&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                                    <a href="http://placehold.it/890x600&amp;text=IMAGE+PLACEHOLDER"
++                                       data-rel="prettyPhoto[gallery]" class="media-box"><img
++                                            src="http://placehold.it/890x600&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
+-              </div>
+-              <div class="additional-images">
++                                </div>
++                                <div class="additional-images">
+-                <ul class="owl-carousel" data-columns="4" data-pagination="no" data-arrows="yes" data-single-item="no" data-items-desktop="4" data-items-desktop-small="4" data-items-tablet="3" data-items-mobile="3">
+-                  <li class="item format-video"> <a href="https://www.youtube.com/watch?v=P5mvnA4BV7Y" data-rel="prettyPhoto[gallery]" class="media-box"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a></li>
+-                  <li class="item format-image"> <a href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" data-rel="prettyPhoto[gallery]" class="media-box"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a></li>
+-                  <li class="item format-image"> <a href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" data-rel="prettyPhoto[gallery]" class="media-box"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a></li>
+-                  <li class="item format-image"> <a href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" data-rel="prettyPhoto[gallery]" class="media-box"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a></li>
+-                  <li class="item format-image"> <a href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" data-rel="prettyPhoto[gallery]" class="media-box"><img src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a></li>
++                                    <ul class="owl-carousel" data-columns="4" data-pagination="no" data-arrows="yes"
++                                        data-single-item="no" data-items-desktop="4" data-items-desktop-small="4"
++                                        data-items-tablet="3" data-items-mobile="3">
++                                        <li class="item format-video"><a
++                                                href="https://www.youtube.com/watch?v=P5mvnA4BV7Y"
++                                                data-rel="prettyPhoto[gallery]" class="media-box"><img
++                                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                                        </li>
++                                        <li class="item format-image"><a
++                                                href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER"
++                                                data-rel="prettyPhoto[gallery]" class="media-box"><img
++                                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                                        </li>
++                                        <li class="item format-image"><a
++                                                href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER"
++                                                data-rel="prettyPhoto[gallery]" class="media-box"><img
++                                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                                        </li>
++                                        <li class="item format-image"><a
++                                                href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER"
++                                                data-rel="prettyPhoto[gallery]" class="media-box"><img
++                                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                                        </li>
++                                        <li class="item format-image"><a
++                                                href="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER"
++                                                data-rel="prettyPhoto[gallery]" class="media-box"><img
++                                                src="http://placehold.it/600x400&amp;text=IMAGE+PLACEHOLDER" alt=""></a>
++                                        </li>
+-                </ul>
+-              </div>
+-            </div>
+-          </div>
+-          <div class="col-md-4 vehicle-details-sidebar sidebar">
++                                    </ul>
++                                </div>
++                            </div>
++                        </div>
++                        <div class="col-md-4 vehicle-details-sidebar sidebar">
+ 
+-              <div class="sidebar-widget widget">
+-                  <ul class="list-group">
++                            <div class="sidebar-widget widget">
++                                <ul class="list-group">
+-                      <li class="list-group-item"> <span class="badge">Year</span> 2014</li>
+-                      <li class="list-group-item"> <span class="badge">Make</span> Nissan</li>
+-                      <li class="list-group-item"> <span class="badge">Model</span> Terrano</li>
+-                      <li class="list-group-item"> <span class="badge">Body style</span> SUV</li>
+-                      <li class="list-group-item"> <span class="badge">Mileage</span> 2000km</li>
+-                      <li class="list-group-item"> <span class="badge">Transmission</span> 5 Speed automatic</li>
+-                      <li class="list-group-item"> <span class="badge">Condition</span> Slightly used</li>
+-                      <li class="list-group-item"> <span class="badge">Fuel Economy</span> 6.8 L/100km</li>
+-                      <li class="list-group-item"> <span class="badge">Engine Size</span> 1390 cc</li>
+-                      <li class="list-group-item"> <span class="badge">Cylinders</span> 4</li>
+-                      <li class="list-group-item"> <span class="badge">Power</span> 168 kW</li>
+-                      <li class="list-group-item"> <span class="badge">Fuel type</span> Diesel</li>
++                                    <li class="list-group-item"><span class="badge">ID</span>{{value.id}}</li>
++                                    <li class="list-group-item"><span class="badge">Название</span>{{value.name}}</li>
++                                    <li class="list-group-item"><span class="badge">id каталога</span>{{value.catalog_id}}</li>
++                                    <li class="list-group-item"><span class="badge">id пользователя</span>{{value.user_id}}</li>
++                                    <li class="list-group-item"><span class="badge">Цена</span>{{value.price}}</li>
++                                    <li class="list-group-item"><span class="badge">Старая цена</span>{{value.old_price}}</li>
+-                  </ul>
+-              </div>
+-              <div class="vehicle-enquiry-foot">
+-                  <span class="vehicle-enquiry-foot-ico"><i class="fa fa-phone"></i></span>
+-                  <strong>1800 011 2211</strong>Seller: <a href="#">Carcheck Sellers</a>
+-              </div>
+-            <!-- Financing Calculator -->
+-          </div>
++                                </ul>
++                            </div>
++                            <div class="vehicle-enquiry-foot">
++                                <span class="vehicle-enquiry-foot-ico"><i class="fa fa-phone"></i></span>
++                                <strong>1800 011 2211</strong>Seller: <a href="#">Carcheck Sellers</a>
++                            </div>
++                            <!-- Financing Calculator -->
++                        </div>
+ 
+-        </div>
+-        <div class="spacer-50"></div>
+-        <div class="row">
+-          <div class="col-md-8">
+-            <div class="tabs vehicle-details-tabs">
+-              <ul class="nav nav-tabs">
++                    </div>
++                    <div class="spacer-50"></div>
++                    <div class="row">
++                        <div class="col-md-8">
++                            <div class="tabs vehicle-details-tabs">
++                                <ul class="nav nav-tabs">
+-                <li class="active"> <a data-toggle="tab" href="#vehicle-overview">Описание</a></li>
++                                    <li class="active"><a data-toggle="tab" href="#vehicle-overview">Описание</a></li>
+-                <li> <a data-toggle="tab" href="#vehicle-specs">Спецификации</a></li>
++                                    <li><a data-toggle="tab" href="#vehicle-specs">Спецификации</a></li>
+-                <li> <a data-toggle="tab" href="#vehicle-add-features">Видео</a></li>
++                                    <li><a data-toggle="tab" href="#vehicle-add-features">Видео</a></li>
+-                <li> <a data-toggle="tab" href="#vehicle-location">Карта</a> </li>
++                                    <li><a data-toggle="tab" href="#vehicle-location">Карта</a></li>
+-              </ul>
+-              <div class="tab-content">
+-                <div id="vehicle-overview" class="tab-pane fade in active">
++                                </ul>
++                                <div class="tab-content">
++                                    <div id="vehicle-overview" class="tab-pane fade in active">
+-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
+-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
++                                        {{value.text}}
+-                </div>
+-                <div id="vehicle-specs" class="tab-pane fade">
+-                  <div class="accordion" id="toggleArea">
+-                    <div class="accordion-group panel">
++                                    </div>
++                                    <div id="vehicle-specs" class="tab-pane fade">
++                                        <div class="accordion" id="toggleArea">
++                                            <div class="accordion-group panel">
+-                      <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseOne"> Engine <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
++                                                <div class="accordion-heading togglize"><a class="accordion-toggle"
++                                                                                           data-toggle="collapse"
++                                                                                           data-parent="#"
++                                                                                           href="#collapseOne"> Engine
++                                                    <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i>
++                                                </a></div>
+-                      <div id="collapseOne" class="accordion-body collapse">
+-                        <div class="accordion-inner">
+-                          <table class="table-specifications table table-striped table-hover">
+-                            <tbody>
+-                            <tr>
+-                              <td>Engine type</td>
++                                                <div id="collapseOne" class="accordion-body collapse">
++                                                    <div class="accordion-inner">
++                                                        <table class="table-specifications table table-striped table-hover">
++                                                            <tbody>
++                                                            <tr>
++                                                                <td>Engine type</td>
+-                              <td>SKYACTIV-G 2.5 L DOHC 16-valve 4-cylinder engine with VVT</td>
++                                                                <td>SKYACTIV-G 2.5 L DOHC 16-valve 4-cylinder engine
++                                                                    with VVT
++                                                                </td>
+-                            </tr>
+-                            <tr>
+-                              <td>Displacement</td>
+-                              <td>2,488 cc</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Compression ratio</td>
+-                              <td>13.0:1</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Horsepower SAE net</td>
+-                              <td>184 @ 5,700 rpm</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Torque SAE net lb. ft.</td>
+-                              <td>185 @ 3,250 rpm</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Fuel system</td>
+-                              <td>Direct injection</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Recommended fuel</td>
+-                              <td>Regular</td>
+-                            </tr>
+-                            <tr>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Displacement</td>
++                                                                <td>2,488 cc</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Compression ratio</td>
++                                                                <td>13.0:1</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Horsepower SAE net</td>
++                                                                <td>184 @ 5,700 rpm</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Torque SAE net lb. ft.</td>
++                                                                <td>185 @ 3,250 rpm</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Fuel system</td>
++                                                                <td>Direct injection</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Recommended fuel</td>
++                                                                <td>Regular</td>
++                                                            </tr>
++                                                            <tr>
+-                              <td>Fuel economy city/highway (L/100 km)*<br />Manual<br />Automatic</td>
++                                                                <td>Fuel economy city/highway (L/100
++                                                                    km)*<br/>Manual<br/>Automatic
++                                                                </td>
+-                              <td>8.1/5.3<br />7.6/5.1</td>
++                                                                <td>8.1/5.3<br/>7.6/5.1</td>
+-                            </tr>
+-                            <tr>
++                                                            </tr>
++                                                            <tr>
+-                              <td>Curb weight (kg)<br /> Manual<br />Automatic</td>
++                                                                <td>Curb weight (kg)<br/> Manual<br/>Automatic</td>
+-                              <td>1,442<br />1,465</td>
++                                                                <td>1,442<br/>1,465</td>
+-                            </tr>
+-                            </tbody>
+-                          </table>
+-                        </div>
+-                      </div>
+-                    </div>
+-                    <div class="accordion-group panel">
++                                                            </tr>
++                                                            </tbody>
++                                                        </table>
++                                                    </div>
++                                                </div>
++                                            </div>
++                                            <div class="accordion-group panel">
+-                      <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseTwo"> Exterior <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
++                                                <div class="accordion-heading togglize"><a class="accordion-toggle"
++                                                                                           data-toggle="collapse"
++                                                                                           data-parent="#"
++                                                                                           href="#collapseTwo"> Exterior
++                                                    <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i>
++                                                </a></div>
+-                      <div id="collapseTwo" class="accordion-body collapse">
+-                        <div class="accordion-inner">
+-                          <table class="table-specifications table table-striped table-hover">
+-                            <tbody>
+-                            <tr>
+-                              <td>Wheelbase/overall length (mm)</td>
+-                              <td>2,830/4,895</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Overall width (mm)</td>
+-                              <td>1,840</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Overall height (mm)</td>
+-                              <td>1,450</td>
+-                            </tr>
+-                            <tr>
++                                                <div id="collapseTwo" class="accordion-body collapse">
++                                                    <div class="accordion-inner">
++                                                        <table class="table-specifications table table-striped table-hover">
++                                                            <tbody>
++                                                            <tr>
++                                                                <td>Wheelbase/overall length (mm)</td>
++                                                                <td>2,830/4,895</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Overall width (mm)</td>
++                                                                <td>1,840</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Overall height (mm)</td>
++                                                                <td>1,450</td>
++                                                            </tr>
++                                                            <tr>
+-                              <td>Track (fr/rr) (mm)<br />17" wheels<br />19" wheels</td>
++                                                                <td>Track (fr/rr) (mm)<br/>17" wheels<br/>19" wheels
++                                                                </td>
+-                              <td>1,585/1,575<br />1,595/1,585</td>
++                                                                <td>1,585/1,575<br/>1,595/1,585</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Turning circle, curb-to-curb (m)</td>
+-                              <td>11.2</td>
+-                            </tr>
+-                            </tbody>
+-                          </table>
+-                        </div>
+-                      </div>
+-                    </div>
+-                    <div class="accordion-group panel">
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Turning circle, curb-to-curb (m)</td>
++                                                                <td>11.2</td>
++                                                            </tr>
++                                                            </tbody>
++                                                        </table>
++                                                    </div>
++                                                </div>
++                                            </div>
++                                            <div class="accordion-group panel">
+-                      <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseThird"> Interior <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
++                                                <div class="accordion-heading togglize"><a class="accordion-toggle"
++                                                                                           data-toggle="collapse"
++                                                                                           data-parent="#"
++                                                                                           href="#collapseThird">
++                                                    Interior <i class="fa fa-plus-circle"></i> <i
++                                                        class="fa fa-minus-circle"></i> </a></div>
+-                      <div id="collapseThird" class="accordion-body collapse">
+-                        <div class="accordion-inner">
+-                          <table class="table-specifications table table-striped table-hover">
+-                            <tbody>
+-                            <tr>
+-                              <td>Headroom (fr/rr) (mm)</td>
+-                              <td>975/942</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Headroom (fr/rr) with moonroof (mm)</td>
+-                              <td>950/942</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Legroom (fr/rr) (mm)</td>
+-                              <td>1,073/984</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Shoulder room (fr/rr) (mm)</td>
+-                              <td>1,450/1,410</td>
+-                            </tr>
+-                            </tbody>
+-                          </table>
+-                        </div>
+-                      </div>
+-                    </div>
+-                    <div class="accordion-group panel">
++                                                <div id="collapseThird" class="accordion-body collapse">
++                                                    <div class="accordion-inner">
++                                                        <table class="table-specifications table table-striped table-hover">
++                                                            <tbody>
++                                                            <tr>
++                                                                <td>Headroom (fr/rr) (mm)</td>
++                                                                <td>975/942</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Headroom (fr/rr) with moonroof (mm)</td>
++                                                                <td>950/942</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Legroom (fr/rr) (mm)</td>
++                                                                <td>1,073/984</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Shoulder room (fr/rr) (mm)</td>
++                                                                <td>1,450/1,410</td>
++                                                            </tr>
++                                                            </tbody>
++                                                        </table>
++                                                    </div>
++                                                </div>
++                                            </div>
++                                            <div class="accordion-group panel">
+-                      <div class="accordion-heading togglize"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#" href="#collapseForth"> Capacities <i class="fa fa-plus-circle"></i> <i class="fa fa-minus-circle"></i> </a> </div>
++                                                <div class="accordion-heading togglize"><a class="accordion-toggle"
++                                                                                           data-toggle="collapse"
++                                                                                           data-parent="#"
++                                                                                           href="#collapseForth">
++                                                    Capacities <i class="fa fa-plus-circle"></i> <i
++                                                        class="fa fa-minus-circle"></i> </a></div>
+-                      <div id="collapseForth" class="accordion-body collapse">
+-                        <div class="accordion-inner">
+-                          <table class="table-specifications table table-striped table-hover">
+-                            <tbody>
+-                            <tr>
+-                              <td>Seating</td>
+-                              <td>5</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Cargo volume (L)</td>
+-                              <td>419</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Passenger volume (L)</td>
+-                              <td>2,824</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Total interior volume (L)</td>
+-                              <td>3,243</td>
+-                            </tr>
+-                            <tr>
+-                              <td>Fuel tank (L)</td>
+-                              <td>62</td>
+-                            </tr>
+-                            </tbody>
+-                          </table>
+-                        </div>
+-                      </div>
+-                    </div>
+-                  </div>
+-                  <!-- End Toggle -->
+-                </div>
+-                <div id="vehicle-add-features" class="tab-pane fade">
+-                  <ul class="add-features-list">
+-                    <li>6 Speaker Stereo</li>
+-                    <li>Driver &amp; Passenger Airbags</li>
+-                    <li>Antilock Brakes</li>
+-                    <li>Park Assist</li>
+-                    <li>Cruise Control</li>
+-                    <li>Power Steering</li>
+-                    <li>17" Alloy Wheels</li>
+-                  </ul>
+-                </div>
+-                <div id="vehicle-location" class="tab-pane fade">
++                                                <div id="collapseForth" class="accordion-body collapse">
++                                                    <div class="accordion-inner">
++                                                        <table class="table-specifications table table-striped table-hover">
++                                                            <tbody>
++                                                            <tr>
++                                                                <td>Seating</td>
++                                                                <td>5</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Cargo volume (L)</td>
++                                                                <td>419</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Passenger volume (L)</td>
++                                                                <td>2,824</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Total interior volume (L)</td>
++                                                                <td>3,243</td>
++                                                            </tr>
++                                                            <tr>
++                                                                <td>Fuel tank (L)</td>
++                                                                <td>62</td>
++                                                            </tr>
++                                                            </tbody>
++                                                        </table>
++                                                    </div>
++                                                </div>
++                                            </div>
++                                        </div>
++                                        <!-- End Toggle -->
++                                    </div>
++                                    <div id="vehicle-add-features" class="tab-pane fade">
++                                        <ul class="add-features-list">
++                                            <li>6 Speaker Stereo</li>
++                                            <li>Driver &amp; Passenger Airbags</li>
++                                            <li>Antilock Brakes</li>
++                                            <li>Park Assist</li>
++                                            <li>Cruise Control</li>
++                                            <li>Power Steering</li>
++                                            <li>17" Alloy Wheels</li>
++                                        </ul>
++                                    </div>
++                                    <div id="vehicle-location" class="tab-pane fade">
+-                  <iframe width="100%" height="300px" frameBorder="0" src="http://a.tiles.mapbox.com/v3/imicreation.map-zkcdvthf.html?secure"></iframe>
++                                        <iframe width="100%" height="300px" frameBorder="0"
++                                                src="http://a.tiles.mapbox.com/v3/imicreation.map-zkcdvthf.html?secure"></iframe>
+-                </div>
+-              </div>
+-            </div>
+-            <div class="spacer-50"></div>
+-            <!-- Recently Listed Vehicles -->
++                                    </div>
++                                </div>
++                            </div>
++                            <div class="spacer-50"></div>
++                            <!-- Recently Listed Vehicles -->
+ 
+-          </div>
+-          <!-- Vehicle Details Sidebar -->
++                        </div>
++                        <!-- Vehicle Details Sidebar -->
+ 
++                    </div>
+-        </div>
+-      </article>
+-      <div class="clearfix"></div>
+-    </div>
+-  </div>
++                </div>
++            </article>
++            <div class="clearfix"></div>
++        </div>
++    </div>
+ </div>
+\ No newline at end of file
+Index: angular/src/app/good/good.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/good/good.component.ts	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/good/good.component.ts	(revision )
+@@ -1,15 +1,31 @@
+-import { Component, OnInit } from '@angular/core';
++import {Component, OnDestroy} from '@angular/core';
++import {GoodService} from "../services/good.service";
++import {ActivatedRoute, Router} from '@angular/router';
++import {Subscription} from 'rxjs/Subscription';
+ 
+ @Component({
+-  selector: 'app-good',
+-  templateUrl: './good.component.html',
+-  styleUrls: ['./good.component.css']
++    selector: 'app-good',
++    templateUrl: './good.component.html',
++    styleUrls: ['./good.component.css']
+ })
+-export class GoodComponent implements OnInit {
++export class GoodComponent implements OnDestroy {
+ 
+-  constructor() { }
++    private subscription:Subscription;
+ 
+-  ngOnInit() {
++    private id;
++    private good;
++
++    constructor(private goodService:GoodService, private activatedRoute:ActivatedRoute, private router:Router) {
++        this.subscription = activatedRoute.params.subscribe(params => {
++            this.goodService.getAllGoods(params['id']).then((goods) => {
++                this.good = goods;
++            });
++        });
+-  }
++    }
++
++    ngOnDestroy() {
++        this.subscription.unsubscribe();
++    }
++
+ 
+ }
+Index: routes/web.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- routes/web.php	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ routes/web.php	(revision )
+@@ -15,6 +15,8 @@
+ });
+ 
+ Route::post('/api/goods', 'GoodsController@getGoodJSON');
++Route::post('/api/good', 'GoodsController@getOneGoodJSON');
++Route::post('/api/user-dashboard-goods', 'GoodsController@getUserGoodJSON');
+ 
+ Route::post('/api/catalog', 'CatalogController@getCatalogJSON');
+ 
+Index: angular/src/app/left-menu/left-menu.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/left-menu/left-menu.component.ts	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ angular/src/app/left-menu/left-menu.component.ts	(revision )
+@@ -1,5 +1,6 @@
+-import { Component, OnInit } from '@angular/core';
++import { Component, OnDestroy } from '@angular/core';
+ import {ActivatedRoute, Router} from '@angular/router';
++import {Subscription} from 'rxjs/Subscription';
+ 
+ import {CatalogService} from "../services/catalog.service";
+ 
+@@ -8,21 +9,22 @@
+   templateUrl: './left-menu.component.html',
+   styleUrls: ['./left-menu.component.css']
+ })
+-export class LeftMenuComponent implements OnInit {
++export class LeftMenuComponent implements OnDestroy {
+ 
++    private subscription: Subscription;
+     private idCategory:string;
+     private menu;
+-    constructor(private activatedRoute:ActivatedRoute, private router: Router, private catalogService: CatalogService) {}
+ 
+-    ngOnInit() {
+-        // console.log("1111111111");
+-        this.activatedRoute.params.forEach((value) => {
+-            this.idCategory = value.idCategory;
+-            // console.log("this.idCategory = " + this.idCategory);
+-        });
+-        this.catalogService.getAllCategories(this.idCategory).then((menu) => {
++    constructor(private activatedRoute:ActivatedRoute, private router: Router, private catalogService: CatalogService) {
++        this.subscription = activatedRoute.params.subscribe(params => {
++            this.catalogService.getAllCategories(params['idCategory']).then((menu) => {
+-            this.menu = menu;
+-        });
++                this.menu = menu;
++            });
++        });
++    }
++
++    ngOnDestroy(){
++        this.subscription.unsubscribe();
+     }
+ 
+ }
+Index: app/Good.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/Good.php	(revision 1b71f9c1f47dd8a7d5973635a602e91948c72287)
++++ app/Good.php	(revision )
+@@ -27,4 +27,10 @@
+         //Chasti_tela::where('nazvanie', '=', 'Руки')->update(['nazvanie' => 'Шеяqqq', 'poradkovii_nomer' => '1', 'funkcii' => 'werwer']);//Редактирование с помощью WHERE
+         return $this->where('catalog_id', '=', $category_id )->get()->toArray();
+     }
++    public function getGoodByCategoryId($id){
++        return $this->where('id', '=', $id )->get()->toArray();
++    }
++    public function getGoodByUser($user_id){
++        return $this->where('user_id', '=', $user_id )->get()->toArray();
++    }
+ }
+Index: angular/src/app/services/dashboard.service.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/services/dashboard.service.ts	(revision )
++++ angular/src/app/services/dashboard.service.ts	(revision )
+@@ -0,0 +1,30 @@
++import {Injectable} from '@angular/core';
++import {Http, Response, Headers, URLSearchParams} from '@angular/http';
++
++@Injectable()
++export class DashboardService {
++
++    constructor(private http:Http) {
++    }
++
++    public getAllGoods(user_id:string) {
++        return new Promise((resolve, reject) => {
++            let headers = new Headers({
++                'Content-Type': 'application/x-www-form-urlencoded'
++            });
++
++            var params = new URLSearchParams();
++            params.set('user_id', user_id);
++            console.log(user_id);
++
++            this.http.post('http://techboard/api/user-dashboard-goods', params.toString(), {headers: headers}).subscribe((data:Response) => {
++                resolve(data.json());
++            }, error => {
++                console.log(error);
++                reject(error);
++            });
++        });
++
++    }
++
++}
+Index: angular/src/app/services/dashboard.service.spec.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- angular/src/app/services/dashboard.service.spec.ts	(revision )
++++ angular/src/app/services/dashboard.service.spec.ts	(revision )
+@@ -0,0 +1,15 @@
++import { TestBed, inject } from '@angular/core/testing';
++
++import { DashboardService } from './dashboard.service';
++
++describe('DashboardService', () => {
++  beforeEach(() => {
++    TestBed.configureTestingModule({
++      providers: [DashboardService]
++    });
++  });
++
++  it('should ...', inject([DashboardService], (service: DashboardService) => {
++    expect(service).toBeTruthy();
++  }));
++});
