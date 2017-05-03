@@ -3,8 +3,27 @@ import {Http, Response, Headers, URLSearchParams} from '@angular/http';
 
 @Injectable()
 export class RequestsService {
-    
+    private headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
     constructor(private http: Http) { }
+
+    public getAllCategories(): Promise<object[]> {
+        console.log('request getAllCategories');
+        return new Promise((resolve, reject) =>{
+
+            var params = new URLSearchParams();
+
+            this.http.post('http://techboard/api/catalog', params.toString(), { headers: this.headers }).subscribe((data: Response) => {
+                // this.menu = data.json();
+                resolve(data.json());
+            }, error => {
+                console.log(error);
+                reject(error);
+            });
+        });
+    }
 
     public registration(name: string, email: string, password: string){
         return new Promise((resolve, reject) =>{
@@ -20,9 +39,6 @@ export class RequestsService {
 
     public editUser(id: string, name: string, email: string, phone: string){
         return new Promise((resolve, reject) => {
-            let headers = new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            });
 
             var params = new URLSearchParams();
             params.set('id', id);
@@ -31,7 +47,7 @@ export class RequestsService {
             params.set('phone', phone);
             
 
-            this.http.post('http://techboard/api/user-edit', params.toString(), {headers: headers}).subscribe((data:Response) => {
+            this.http.post('http://techboard/api/user-edit', params.toString(), {headers: this.headers}).subscribe((data:Response) => {
                 resolve(data.json());
             }, error => {
                 console.log(error);

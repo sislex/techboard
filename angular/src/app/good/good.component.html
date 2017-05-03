@@ -3,10 +3,10 @@
         <div class="container">
             <!-- Vehicle Details -->
             <article class="single-vehicle-details">
-                <div *ngFor="let value of good">
+                <div *ngIf="good">
                     <div class="single-vehicle-title">
                         <span class="badge-premium-listing">Premium listing</span>
-                        <h2 class="post-title">{{value.name}}</h2>
+                        <h2 class="post-title">{{good.name}}</h2>
                     </div>
                     <div class="single-listing-actions">
                         <div class="btn-group pull-right" role="group">
@@ -18,7 +18,7 @@
                                title="Print"><i
                                     class="fa fa-print"></i> <span>Print</span></a>
                         </div>
-                        <div class="btn btn-info price">{{value.price}}</div>
+                        <div class="btn btn-info price">{{good.price}}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
@@ -65,12 +65,12 @@
 
                             <div class="sidebar-widget widget">
                                 <ul class="list-group">
-                                    <li class="list-group-item"><span class="badge">ID</span>{{value.id}}</li>
-                                    <li class="list-group-item"><span class="badge">Название</span>{{value.name}}</li>
-                                    <li class="list-group-item"><span class="badge">id каталога</span>{{value.catalog_id}}</li>
-                                    <li class="list-group-item"><span class="badge">id пользователя</span>{{value.user_id}}</li>
-                                    <li class="list-group-item"><span class="badge">Цена</span>{{value.price}}</li>
-                                    <li class="list-group-item"><span class="badge">Старая цена</span>{{value.old_price}}</li>
+                                    <li class="list-group-item"><span class="badge">ID</span>{{good.id}}</li>
+                                    <li class="list-group-item"><span class="badge">Название</span>{{good.name}}</li>
+                                    <li class="list-group-item"><span class="badge">id каталога</span>{{getCatalogNameById(good.catalog_id)}}</li>
+                                    <li class="list-group-item"><span class="badge">id пользователя</span>{{good.user_id}}</li>
+                                    <li class="list-group-item"><span class="badge">Цена</span>{{good.price}}</li>
+                                    <li class="list-group-item"><span class="badge">Старая цена</span>{{good.old_price}}</li>
                                 </ul>
                             </div>
                             <div class="vehicle-enquiry-foot">
@@ -93,7 +93,7 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div id="vehicle-overview" class="tab-pane fade in active">
-                                        {{value.text}}
+                                        {{good.text}}
                                     </div>
                                     <div id="vehicle-specs" class="tab-pane fade">
                                         <div class="accordion" id="toggleArea">

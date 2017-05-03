@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, URLSearchParams} from '@angular/http';
+import {RequestsService} from "./requests.service";
 
 @Injectable()
 export class CatalogService {
 
-    constructor(private http: Http) { }
+    private catalog: object[] = null;
 
-        public getAllCategories(idCategory: string) {
-            return new Promise((resolve, reject) =>{
-                let headers = new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded'
+    constructor(private requestsService: RequestsService) { }
+
+    public getAllCategories() {
+        console.log('service getAllCategories');
+        return new Promise((resolve, reject) => {
+            if(!this.catalog){
+                this.requestsService.getAllCategories().then((catalog) => {
+                    this.catalog = catalog;
+                    resolve(this.catalog);
                 });
-
-                var params = new URLSearchParams();
-                // params.set('id', 'idCategory');
-
-                this.http.post('http://techboard/api/catalog', params.toString(), { headers: headers }).subscribe((data: Response) => {
-                    // this.menu = data.json();
-                    resolve(data.json());
-                }, error => {
-                    console.log(error);
-                    reject(error);
-                });
-            });
-        }
+            } else {
+                resolve(this.catalog);
+            }
+        });
+    }
 
 }
