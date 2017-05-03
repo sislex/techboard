@@ -18,7 +18,7 @@ export class RequestsService {
         });
     }
 
-    public editUser(id: string, name: string, email: string, password: string){
+    public editUser(id: string, name: string, email: string, phone: string){
         return new Promise((resolve, reject) => {
             let headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -28,7 +28,7 @@ export class RequestsService {
             params.set('id', id);
             params.set('name', name);
             params.set('email', email);
-            params.set('phone', password);
+            params.set('phone', phone);
             
 
             this.http.post('http://techboard/api/user-edit', params.toString(), {headers: headers}).subscribe((data:Response) => {
