@@ -7,7 +7,7 @@ export class GoodService {
     constructor(private http:Http) {
     }
 
-    public getAllGoods(id:string) {
+    public getGood(id:string) {
         return new Promise((resolve, reject) => {
             let headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'

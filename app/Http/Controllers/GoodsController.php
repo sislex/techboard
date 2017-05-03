@@ -27,7 +27,7 @@ class GoodsController extends Controller
         $input = \Request::all();
 
         $Good = new Good();
-        $goodResponse = $Good->getGoodByCategoryId($input['id']);
+        $goodResponse = $Good->getGoodById($input['id']);
         return response()
             ->json($goodResponse)
             ->header('Access-Control-Allow-Origin', '*')

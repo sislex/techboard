@@ -13,22 +13,22 @@
             <label for="nameCategory">Категория*</label>
             <select id="nameCategory" name="nameCategory" class="form-control" required [(ngModel)]="category" #nameCategory="ngModel">
                 <option></option>
-                <option value="Beige">Эксковаторы</option>
-                <option value="Black">Трактора</option>
+                <option value="1">Эксковаторы</option>
+                <option value="2">Трактора</option>
             </select>
             <div *ngIf="f.submitted && !nameCategory.valid" class="help-block">Укажите категорию</div>
         </div>
         <div class="form-group">
-            <label for="description-good">Краткое описание товара*</label>
+            <label for="description-good">Краткое описание товара</label>
             <textarea id="description-good" name="description-good" class="form-control" rows="3" placeholder="Краткое описание товара" [(ngModel)]="description"></textarea>
         </div>
         <div class="form-group">
-            <label for="text-good">Подробное описание товара*</label>
+            <label for="text-good">Подробное описание товара</label>
             <textarea id="text-good" name="text-good" class="form-control" rows="10" placeholder="Подробное описание товара" [(ngModel)]="text"></textarea>
         </div>
         <div class="form-group">
             <label for="video_link">Ссылка на видео</label>
-            <input type="text" id="video_link" name="video_link" class="form-control" placeholder="Ссылка на видео" required [(ngModel)]="video_link">
+            <input type="text" id="video_link" name="video_link" class="form-control" placeholder="Ссылка на видео" [(ngModel)]="video_link">
         </div>
         <div class="form-group">
             <label for="map-good">Координаты нахождения товара на карте</label>
@@ -40,10 +40,9 @@
             </div>
             <div class="panel-body">
                 <div class="input-group">
-                    <input type="text" name="price" class="form-control" placeholder="Цены: от 20000 до 28000 BYN." [(ngModel)]="price">
+                    <input type="text" name="price" class="form-control" placeholder="Цена товара" [(ngModel)]="price">
                     <span class="input-group-addon">BYN</span>
                 </div>
-                <p class="small">Цены: от 20000 до 28000 BYN.</p>
             </div>
         </div>
         <button type="submit" [disabled]="loading" class="btn btn-info">Сохранить</button>

@@ -17,7 +17,7 @@ export class GoodComponent implements OnDestroy {
 
     constructor(private goodService:GoodService, private activatedRoute:ActivatedRoute, private router:Router) {
         this.subscription = activatedRoute.params.subscribe(params => {
-            this.goodService.getAllGoods(params['id']).then((goods) => {
+            this.goodService.getGood(params['id']).then((goods) => {
                 this.good = goods;
             });
         });

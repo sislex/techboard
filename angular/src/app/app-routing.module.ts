@@ -14,11 +14,12 @@ const ROUTES = [
   {path: '', component: CatalogComponent},
   {path: 'catalog', component: CatalogComponent},
   {path: 'goods/:idCategory', component: CatalogComponent},
-  {path: 'user-dashboard/:user_id', component: UserDashboardComponent},
+  {path: 'user-dashboard', component: UserDashboardComponent},
   {path: 'user-settings', component: UserSettingsComponent},
   {path: 'user-registration', component: UserRegistrationComponent},
-  {path: 'user-profile/:id', component: UserProfileComponent},
-  {path: 'user-editing-an-ad/:user_id/:good_id', component: UserEditingAnAdComponent},
+  {path: 'user-profile', component: UserProfileComponent},
+  {path: 'user-editing-an-ad/:good_id', component: UserEditingAnAdComponent},
+  {path: 'user-editing-an-ad', component: UserEditingAnAdComponent},
   {path: 'good/:id', component: GoodComponent},
     
   {path: '**', component: CatalogComponent}

@@ -35,8 +35,10 @@
                     <td><span class="text-success">Created on</span> 09/12/14 @ 12:09am</td>
                     <td align="center"><span class="label label-warning">Pending payment</span></td>
                     <td align="center">
-                        <button class="text-default" title="Archive"><i class="fa fa-archive"></i></button>
-                        <button class="text-danger" title="Delete"><i class="fa fa-times"></i></button>
+                        <button class="text-default" title="Редактировать">
+                            <a [routerLink]="'/user-editing-an-ad/' + value.id"><i class="fa fa-archive"></i></a>
+                        </button>
+                        <button class="text-danger" title="Удалить"><i class="fa fa-times"></i></button>
                     </td>
                 </tr>
                 </tbody>
