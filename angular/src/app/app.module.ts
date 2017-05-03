@@ -31,6 +31,8 @@ import {DashboardService} from "./services/dashboard.service";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ProfileComponent } from './profile/profile.component';
 import {ProfileService} from "./services/profile.service";
+import { EditingAnAdComponent } from './editing-an-ad/editing-an-ad.component';
+import { UserEditingAnAdComponent } from './user-editing-an-ad/user-editing-an-ad.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,9 @@ import {ProfileService} from "./services/profile.service";
         RegistrationComponent,
         GoodComponent,
         UserProfileComponent,
-        ProfileComponent
+        ProfileComponent,
+        EditingAnAdComponent,
+        UserEditingAnAdComponent
     ],
     imports: [
         BrowserModule,

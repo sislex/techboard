@@ -7,6 +7,7 @@ import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {UserRegistrationComponent} from "./user-registration/user-registration.component";
 import {GoodComponent} from "./good/good.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
+import {UserEditingAnAdComponent} from "./user-editing-an-ad/user-editing-an-ad.component";
 
 
 const ROUTES = [
@@ -17,6 +18,7 @@ const ROUTES = [
   {path: 'user-settings', component: UserSettingsComponent},
   {path: 'user-registration', component: UserRegistrationComponent},
   {path: 'user-profile/:id', component: UserProfileComponent},
+  {path: 'user-editing-an-ad/:user_id/:good_id', component: UserEditingAnAdComponent},
   {path: 'good/:id', component: GoodComponent},
     
   {path: '**', component: CatalogComponent}
