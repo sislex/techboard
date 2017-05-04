@@ -14,28 +14,28 @@
                     <!-- PROFIE PERSONAL INFO -->
                     <div id="personalinfo" class="tab-pane fade active in">
                         <form method="post" name="form" id="form"
-                              (ngSubmit)="f.form.valid && edit(value.name, value.email, value.phone)" #f="ngForm"
+                              (ngSubmit)="q.form.valid && edit(value.name, value.email, value.phone)" #q="ngForm"
                               novalidate>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">
                                         <div class="col-md-6 form-group"
-                                             [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                                             [ngClass]="{ 'has-error': q.submitted && !name.valid }">
                                             <label for="name">Имя*</label>
                                             <input type="text" id="name" class="form-control" name="name"
                                                    placeholder="Имя" required
                                                    [(ngModel)]="value.name" #name="ngModel">
-                                            <div *ngIf="f.submitted && !name.valid" class="help-block">Введите имя</div>
+                                            <div *ngIf="q.submitted && !name.valid" class="help-block">Введите имя</div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 form-group"
-                                             [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                                             [ngClass]="{ 'has-error': q.submitted && !email.valid }">
                                             <label for="email">Email*</label>
                                             <input type="text" id="email" name="email" class="form-control"
                                                    placeholder="Email"
                                                    required [(ngModel)]="value.email" #email="ngModel">
-                                            <div *ngIf="f.submitted && !email.valid" class="help-block">Введите email
+                                            <div *ngIf="q.submitted && !email.valid" class="help-block">Введите email
                                             </div>
                                         </div>
                                         <div class="col-md-6 form-group">

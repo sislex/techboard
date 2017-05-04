@@ -45,7 +45,6 @@ export class RequestsService {
             params.set('name', name);
             params.set('email', email);
             params.set('phone', phone);
-            
 
             this.http.post('http://techboard/api/user-edit', params.toString(), {headers: this.headers}).subscribe((data:Response) => {
                 resolve(data.json());

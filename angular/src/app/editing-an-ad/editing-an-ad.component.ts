@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {GoodService} from "../services/good.service";
+import {CatalogService} from "../services/catalog.service";
 
 @Component({
   selector: 'app-editing-an-ad',
@@ -10,12 +11,16 @@ import {GoodService} from "../services/good.service";
 })
 export class EditingAnAdComponent {
 
-    
+    private catalog;//Список всех категорий каталога
+    private blockName: string = 'Создание товара';
+    private buttonSaveName: string = 'Создать товар';
     private subscription:Subscription;
-    private good;
-    private user_id;
-    private good_id;
 
+    private user_id: number = 1;//Понадобиться чуть позже
+    private good_id: string = '0';//Передаваемый параметр id товара
+
+    //Переменные для заполнения/редактирования формы
+    private good;
     private name;
     private category;
     private description;
@@ -24,14 +29,17 @@ export class EditingAnAdComponent {
     private map;
     private price;
 
-    // name, category, description, text, video_link, map, price
-    constructor(private activatedRoute:ActivatedRoute, private router:Router, private goodService:GoodService) {
-        console.log(1);
+    constructor(private activatedRoute:ActivatedRoute, private router:Router, private goodService:GoodService, private catalogService: CatalogService) {
+        this.catalogService.getAllCategories().then((catalog) => {
+            this.catalog = catalog;
+        });
+        
         this.subscription = activatedRoute.params.subscribe(params => {
-            console.log(2);
-            console.log(params);
             if(params['good_id']){
-                console.log("2222222222222222222222222222");
+                this.blockName = 'Редактирование товара';
+                this.buttonSaveName = 'Сохранить изменения';
+                this.good_id = params['good_id'];
+                console.log("Параметр good_id: " + this.good_id);
                 this.goodService.getGood(params['good_id']).then((good) => {
                     this.good = good;
                     this.name = this.good.name;
@@ -44,19 +52,14 @@ export class EditingAnAdComponent {
                 });
             }
         });
-
         this.subscription.unsubscribe();
-        console.log(3);
     }
 
-    // editGood(good_id: string, email: string, phone: string){
-    //     // console.log("name: " + name+ ", email: " + email + ", phone: " + phone);
-    //     this.requestsService.editUser(this.users[0].id, name, email, phone);
-    // }
-    
     editGood(name, category, description, text, video_link, map, price){
         console.log("name: " + name + ", category: " + category + ", description: " + description + ", text: " + text +
             ", video_link: " + video_link + ", map: " + map + ", price: " + price);
+        category = 1;
+        this.goodService.editGood(this.good_id, name, category, this.user_id, description, text, video_link, map, price);
     }
 
     ngOnInit(){

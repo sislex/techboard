@@ -15,7 +15,6 @@ export class DashboardService {
 
             var params = new URLSearchParams();
             params.set('user_id', user_id);
-            console.log(user_id);
 
             this.http.post('http://techboard/api/user-dashboard-goods', params.toString(), {headers: headers}).subscribe((data:Response) => {
                 resolve(data.json());

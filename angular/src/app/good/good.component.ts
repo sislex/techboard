@@ -17,7 +17,6 @@ export class GoodComponent implements OnDestroy {
     private good;
     private catalog;
 
-
     constructor(private goodService:GoodService, private catalogService: CatalogService, private activatedRoute:ActivatedRoute, private router:Router) {
         this.catalogService.getAllCategories().then((catalog) => {
             this.catalog = catalog;
@@ -28,9 +27,7 @@ export class GoodComponent implements OnDestroy {
                 this.good = goods;
             });
         });
-
-
-
+        
     }
 
     private getCatalogNameById(catalogId): string {
@@ -42,13 +39,11 @@ export class GoodComponent implements OnDestroy {
             const categoryObject = filterArray[0];
             catalogName = categoryObject.name;
         }
-
         return catalogName;
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
-
-
+    
 }

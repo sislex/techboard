@@ -19,6 +19,7 @@ Route::post('/api/good', 'GoodsController@getOneGoodJSON');
 Route::post('/api/user-dashboard-goods', 'GoodsController@getUserGoodJSON');
 Route::post('/api/users', 'UsersController@getUserJSON');
 Route::post('/api/user-edit', 'UsersController@updateUser');
+Route::post('/api/good-edit', 'GoodsController@editGood');
 
 Route::post('/api/catalog', 'CatalogController@getCatalogJSON');
 
