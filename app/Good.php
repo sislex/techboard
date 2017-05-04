@@ -34,11 +34,19 @@ class Good extends Model
         return $this->where('user_id', '=', $user_id )->get()->toArray();
     }
     public function getEditGoodById($id, $name, $catalog_id, $user_id, $description, $text, $video_link, $imap, $price){
-//        if($id > 0){
+
+        if($id > 0){
+//            return $this->find($id)->get();//Редактирование только по ID
+//            return $this->update(['name' => $name])->where('id', '=', $id );//Редактирование только по ID
+            return "id: ".$id.", name:". $name. ", catalog_id: ". $catalog_id;
+        }
+        else{
+            return "id < 0";
+        }
             //Chasti_tela::find(6)->update(['nazvanie' => 'Шеяqqq', 'poradkovii_nomer' => '1', 'funkcii' => 'werwer']);//Редактирование только по ID
 //            ($this->find($id)->get('price'))
 //        return $this->find($id)->update(['name' => $name, 'email' => $email, 'phone' => $phone]);//Редактирование только по ID
-        return $this->find($id)->update(['name' => $name]);//Редактирование только по ID
+//        return $this->find($id)->update(['name' => $name]);//Редактирование только по ID
 //        return $this->find($id)->update([
 //                'name' => $name, 'catalog_id' => $catalog_id, 'description' => $description, 'text' => $text,
 //                'title' => $catalog_id . " " . $name, 'video_link' => $video_link, 'map' => $imap,

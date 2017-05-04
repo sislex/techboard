@@ -17,7 +17,7 @@ export class EditingAnAdComponent {
     private subscription:Subscription;
 
     private user_id: number = 1;//Понадобиться чуть позже
-    private good_id: string = '0';//Передаваемый параметр id товара
+    private good_id: number = 0;//Передаваемый параметр id товара
 
     //Переменные для заполнения/редактирования формы
     private good;
