@@ -33,25 +33,40 @@ class Good extends Model
     public function getGoodByUser($user_id){
         return $this->where('user_id', '=', $user_id )->get()->toArray();
     }
-    public function getEditGoodById($id, $name, $catalog_id, $user_id, $description, $text, $video_link, $imap, $price){
+    public function getEditGoodById($input){
 
-        if($id > 0){
-//            return $this->find($id)->get();//Редактирование только по ID
-//            return $this->update(['name' => $name])->where('id', '=', $id );//Редактирование только по ID
-            return "id: ".$id.", name:". $name. ", catalog_id: ". $catalog_id;
+        if(isset($input['id'])){
+            if(isset($input['title'])) {
+                return $this->find($input['id'])->update($input);//Редактирование только по ID
+            }
+            else{
+                return $this->find($input['id'])->update([
+                    'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
+                    'description' => $input['description'], 'text' => $input['text'], 'title' => '',
+                    'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
+                ]);//Редактирование только по ID
+            }
         }
         else{
-            return "id < 0";
+            if(isset($input['title'])){
+                return $this->create([
+                    'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
+                    'description' => $input['description'], 'text' => $input['text'], 'title' => $input['title'],
+                    'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
+                ]);
+            }
+            else{
+                return $this->create([
+                    'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
+                    'description' => $input['description'], 'text' => $input['text'],
+                    'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
+                ]);
+            }
+
         }
-            //Chasti_tela::find(6)->update(['nazvanie' => 'Шеяqqq', 'poradkovii_nomer' => '1', 'funkcii' => 'werwer']);//Редактирование только по ID
-//            ($this->find($id)->get('price'))
-//        return $this->find($id)->update(['name' => $name, 'email' => $email, 'phone' => $phone]);//Редактирование только по ID
-//        return $this->find($id)->update(['name' => $name]);//Редактирование только по ID
-//        return $this->find($id)->update([
-//                'name' => $name, 'catalog_id' => $catalog_id, 'description' => $description, 'text' => $text,
-//                'title' => $catalog_id . " " . $name, 'video_link' => $video_link, 'map' => $imap,
-//                'old_price' => "55555", 'price' => $price
-//            ]);
-//        }
+    }
+
+    public function getDelGoodById($input){
+        return $this->find($input['id'])->delete();//Удаление по ID;
     }
 }

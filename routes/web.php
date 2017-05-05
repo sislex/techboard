@@ -14,12 +14,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/api/registration', 'UsersController@createUser');
+Route::get('/api/registration', 'UsersController@createUser');
 Route::post('/api/goods', 'GoodsController@getGoodJSON');
 Route::post('/api/good', 'GoodsController@getOneGoodJSON');
 Route::post('/api/user-dashboard-goods', 'GoodsController@getUserGoodJSON');
 Route::post('/api/users', 'UsersController@getUserJSON');
+Route::post('/api/user-edit-password', 'UsersController@editPasswordUser');
 Route::post('/api/user-edit', 'UsersController@updateUser');
 Route::post('/api/good-edit', 'GoodsController@editGood');
+Route::get('/api/good-edit', 'GoodsController@editGood');
+Route::post('/api/good-del', 'GoodsController@delGood');
 
 Route::post('/api/catalog', 'CatalogController@getCatalogJSON');
 

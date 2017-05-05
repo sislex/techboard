@@ -25,12 +25,24 @@ export class RequestsService {
         });
     }
 
-    public registration(name: string, email: string, password: string){
+    public registrationUser(name: string, email: string, password: string){
         return new Promise((resolve, reject) =>{
-            this.http.get('http://techboard/goods').subscribe((data: Response) => {
+            let headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+
+            var params = new URLSearchParams();
+            params.set('name', name);
+            params.set('email', email);
+            params.set('password', password);
+
+            console.log(name);
+            console.log(email);
+            console.log(password);
+
+            this.http.post('http://techboard/api/registration', params.toString(), {headers: headers}).subscribe((data:Response) => {
                 resolve(data.json());
             }, error => {
-                console.log(1);
                 console.log(error);
                 reject(error);
             });

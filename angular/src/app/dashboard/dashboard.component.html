@@ -36,9 +36,9 @@
                     <td align="center"><span class="label label-warning">Pending payment</span></td>
                     <td align="center">
                         <button class="text-default" title="Редактировать">
-                            <a [routerLink]="'/user-editing-an-ad/' + value.id"><i class="fa fa-archive"></i></a>
+                            <a [routerLink]="'/user-editing-an-ad/' + value.id"><i class="fa fa-pencil"></i></a>
                         </button>
-                        <button class="text-danger" title="Удалить"><i class="fa fa-times"></i></button>
+                        <button class="text-danger" title="Удалить" (click)="delGood(value.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </td>
                 </tr>
                 </tbody>

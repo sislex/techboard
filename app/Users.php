@@ -18,6 +18,13 @@ class Users extends Model
         'updated_at'
     ];
 
+    public function createUser($input){
+        return $input['name'];
+//        return $this->create([
+//            'name' => $input['name'], 'email' => $input['email'], 'password' => $input['password']
+//        ]);//Создание
+    }
+
     public function getUser($id){
         return $this->where('id', '=', $id )->get()->toArray();
     }
@@ -25,4 +32,9 @@ class Users extends Model
     public function updateUser($id, $name, $email, $phone){
         return $this->find($id)->update(['name' => $name, 'email' => $email, 'phone' => $phone]);//Редактирование только по ID
     }
+
+    public function updatePasswordUser($input){
+        return $this->find($input['id'])->update(['password' => $input['password']]);//Редактирование только по ID
+    }
+
 }

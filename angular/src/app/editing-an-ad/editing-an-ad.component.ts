@@ -17,7 +17,7 @@ export class EditingAnAdComponent {
     private subscription:Subscription;
 
     private user_id: number = 1;//Понадобиться чуть позже
-    private good_id: number = 0;//Передаваемый параметр id товара
+    private good_id: number = null;//Передаваемый параметр id товара
 
     //Переменные для заполнения/редактирования формы
     private good;
@@ -28,6 +28,7 @@ export class EditingAnAdComponent {
     private video_link;
     private map;
     private price;
+    private title;
 
     constructor(private activatedRoute:ActivatedRoute, private router:Router, private goodService:GoodService, private catalogService: CatalogService) {
         this.catalogService.getAllCategories().then((catalog) => {
@@ -49,17 +50,15 @@ export class EditingAnAdComponent {
                     this.video_link = this.good.video_link;
                     this.map = this.good.map;
                     this.price = this.good.price;
+                    this.title = this.good.title;
                 });
             }
         });
         this.subscription.unsubscribe();
     }
 
-    editGood(name, category, description, text, video_link, map, price){
-        console.log("name: " + name + ", category: " + category + ", description: " + description + ", text: " + text +
-            ", video_link: " + video_link + ", map: " + map + ", price: " + price);
-        category = 1;
-        this.goodService.editGood(this.good_id, name, category, this.user_id, description, text, video_link, map, price);
+    editGood(name, category, description, text, video_link, map, price, title){
+        this.goodService.editGood(this.good_id, name, category, this.user_id, description, text, video_link, map, price, title);
     }
 
     ngOnInit(){

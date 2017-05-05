@@ -1,7 +1,7 @@
 <div class="col-md-9 col-sm-8">
     <!--editGood(name, category, description, text, video_link, map, price)-->
     <form method="post" name="form" id="form"
-          (ngSubmit)="f.form.valid && editGood(name, category, description, text, video_link, map, price)" #f="ngForm"
+          (ngSubmit)="f.form.valid && editGood(name, category, description, text, video_link, map, price, title)" #f="ngForm"
           novalidate>
         <h2>{{blockName}}</h2>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nameGood.valid }">
@@ -13,7 +13,7 @@
             <label for="nameCategory">Категория*</label>
             <select id="nameCategory" name="nameCategory" class="form-control" required [(ngModel)]="category" #nameCategory="ngModel">
                 <option></option>
-                <option *ngFor="let value of catalog" value="{{value.id}}">{{value.name}}</option>
+                <option *ngFor="let value of catalog" [ngValue]="value.id">{{value.name}}</option>
             </select>
             <div *ngIf="f.submitted && !nameCategory.valid" class="help-block">Укажите категорию</div>
         </div>
@@ -43,6 +43,10 @@
                     <span class="input-group-addon">BYN</span>
                 </div>
             </div>
+        </div>
+        <div class="form-group">
+            <label for="title-good">Укажите title для продвижения товара.</label>
+            <textarea id="title-good" name="title-good" class="form-control" rows="3" placeholder="title для продвижения товара. При отстутсвии title он будет собираться автоматически из названий категории и товара " [(ngModel)]="title"></textarea>
         </div>
         <button type="submit" [disabled]="loading" class="btn btn-info">{{buttonSaveName}}</button>
     </form>

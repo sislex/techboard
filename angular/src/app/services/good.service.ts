@@ -26,7 +26,7 @@ export class GoodService {
 
     }
 
-    public editGood(good_id, name, category, user_id, description, text, video_link, map, price){
+    public editGood(good_id, name, category, user_id, description, text, video_link, map, price, title){
         return new Promise((resolve, reject) => {
             let headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -41,8 +41,26 @@ export class GoodService {
             params.set('video_link', video_link);
             params.set('map', map);
             params.set('price', price);
+            params.set('title', title);
 
             this.http.post('http://techboard/api/good-edit', params.toString(), {headers: headers}).subscribe((data:Response) => {
+                resolve(data.json());
+            }, error => {
+                console.log(error);
+                reject(error);
+            });
+        })
+    }
+    
+    public delGood(id){
+        return new Promise((resolve, reject) => {
+            let headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+            var params = new URLSearchParams();
+            params.set('id', id);
+
+            this.http.post('http://techboard/api/good-del', params.toString(), {headers: headers}).subscribe((data:Response) => {
                 resolve(data.json());
             }, error => {
                 console.log(error);

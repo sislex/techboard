@@ -34,7 +34,6 @@ export class ProfileService {
 
             var params = new URLSearchParams();
             params.set('id', id);
-            console.log(id);
 
             this.http.post('http://techboard/api/users', params.toString(), {headers: headers}).subscribe((data:Response) => {
                 resolve(data.json());
@@ -43,7 +42,25 @@ export class ProfileService {
                 reject(error);
             });
         });
-
     }
 
+    public editPassword(id:string, newPassword:string) {
+        return new Promise((resolve, reject) => {
+            let headers = new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+
+            var params = new URLSearchParams();
+            params.set('id', id);
+            params.set('password', newPassword);
+
+            this.http.post('http://techboard/api/user-edit-password', params.toString(), {headers: headers}).subscribe((data:Response) => {
+                resolve(data.json());
+            }, error => {
+                console.log(error);
+                reject(error);
+            });
+        });
+    }
+    
 }

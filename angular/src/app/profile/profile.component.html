@@ -1,6 +1,5 @@
 <div class="col-md-9 col-sm-8">
     <h2>Мой профиль</h2>
-    <div *ngFor="let value of users">
         <div class="dashboard-block">
             <div class="tabs profile-tabs">
                 <ul class="nav nav-tabs">
@@ -14,35 +13,35 @@
                     <!-- PROFIE PERSONAL INFO -->
                     <div id="personalinfo" class="tab-pane fade active in">
                         <form method="post" name="form" id="form"
-                              (ngSubmit)="q.form.valid && edit(value.name, value.email, value.phone)" #q="ngForm"
+                              (ngSubmit)="q.form.valid && edit(name, email, phone)" #q="ngForm"
                               novalidate>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">
                                         <div class="col-md-6 form-group"
-                                             [ngClass]="{ 'has-error': q.submitted && !name.valid }">
+                                             [ngClass]="{ 'has-error': q.submitted && !name1.valid }">
                                             <label for="name">Имя*</label>
                                             <input type="text" id="name" class="form-control" name="name"
                                                    placeholder="Имя" required
-                                                   [(ngModel)]="value.name" #name="ngModel">
-                                            <div *ngIf="q.submitted && !name.valid" class="help-block">Введите имя</div>
+                                                   [(ngModel)]="name" #name1="ngModel">
+                                            <div *ngIf="q.submitted && !name1.valid" class="help-block">Введите имя</div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 form-group"
-                                             [ngClass]="{ 'has-error': q.submitted && !email.valid }">
+                                             [ngClass]="{ 'has-error': q.submitted && !email1.valid }">
                                             <label for="email">Email*</label>
                                             <input type="text" id="email" name="email" class="form-control"
                                                    placeholder="Email"
-                                                   required [(ngModel)]="value.email" #email="ngModel">
-                                            <div *ngIf="q.submitted && !email.valid" class="help-block">Введите email
+                                                   required [(ngModel)]="email" #email1="ngModel">
+                                            <div *ngIf="q.submitted && !email1.valid" class="help-block">Введите email
                                             </div>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="phone">Phone</label>
                                             <input type="text" id="phone" name="phone" class="form-control"
                                                    placeholder="000-00-0000"
-                                                   [(ngModel)]="value.phone">
+                                                   [(ngModel)]="phone">
                                         </div>
                                     </div>
 
@@ -69,29 +68,30 @@
                     <!-- PROFIE CHANGE PASSWORD -->
                     <div id="changepassword" class="tab-pane fade">
                         <form method="post" name="formNewPassword" id="formNewPassword"
-                              (ngSubmit)="f.form.valid && editPassword(password, newPassword, confirmNewPassword)" #f="ngForm"
+                              (ngSubmit)="a.form.valid && editPassword(old_password, newPassword, confirmNewPassword)" #a="ngForm"
                               novalidate>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="password">Old Password</label>
-                                            <input type="password" id="password" name="password" [(ngModel)]="password"
-                                                   class="form-control" placeholder="Введите пароль" required>
-                                            <!--<div *ngIf="f.submitted && !password.valid" class="help-block">Введите пароль-->
-                                            <!--</div>-->
+                                        <div class="col-md-6 form-group" [ngClass]="{ 'has-error': a.submitted && !password1.valid }">
+                                            <label for="password">Введите старый пароль</label>
+                                            <input type="password" id="password" name="password"
+                                                   class="form-control" placeholder="Введите пароль" required [(ngModel)]="old_password" #password1="ngModel">
+                                            <div *ngIf="a.submitted && !password1.valid" class="help-block">Введите старый пароль</div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="newPassword">New password</label>
+                                        <div class="col-md-6 form-group" [ngClass]="{ 'has-error': a.submitted && !newPassword1.valid }">
+                                            <label for="newPassword">Введите новый пароль</label>
                                             <input type="password" id="newPassword" name="newPassword"
-                                                   [(ngModel)]="newPassword" class="form-control" placeholder="">
+                                                   [(ngModel)]="newPassword" class="form-control" placeholder="Введите новый пароль" required #newPassword1="ngModel">
+                                            <div *ngIf="a.submitted && !newPassword1.valid" class="help-block">Введите новый пароль</div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="confirmNewPassword">Confirm new password</label>
+                                        <div class="col-md-6 form-group" [ngClass]="{ 'has-error': a.submitted && !confirmNewPassword1.valid }">
+                                            <label for="confirmNewPassword">Подтвердите пароль</label>
                                             <input type="password" id="confirmNewPassword" name="confirmNewPassword"
-                                                   [(ngModel)]="confirmNewPassword" class="form-control" placeholder="">
+                                                   [(ngModel)]="confirmNewPassword" class="form-control" placeholder="Подтвердите пароль" required #confirmNewPassword1="ngModel">
+                                            <div *ngIf="a.submitted && !confirmNewPassword1.valid" class="help-block">Подтвердите пароль</div>
                                         </div>
                                     </div>
                                     <div>
@@ -107,5 +107,4 @@
 
             </div>
         </div>
-    </div>
 </div>

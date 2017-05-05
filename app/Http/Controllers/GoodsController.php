@@ -55,13 +55,9 @@ class GoodsController extends Controller
 
     public function editGood(){
         $input = \Request::all();
-
+        
         $Good = new Good();
-        $goodResponse = $Good->getEditGoodById(
-                                                $input['id'], $input['name'], $input['catalog_id'], $input['user_id'],
-                                                $input['description'], $input['text'], $input['video_link'], $input['map'],
-                                                $input['price']
-                                                );
+        $goodResponse = $Good->getEditGoodById($input);
         return response()
             ->json($goodResponse)
             ->header('Access-Control-Allow-Origin', '*')
@@ -70,6 +66,21 @@ class GoodsController extends Controller
             ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
             ;
         
+    }
+
+    public function delGood(){
+        $input = \Request::all();
+
+        $Good = new Good();
+        $goodResponse = $Good->getDelGoodById($input);
+        return response()
+            ->json($goodResponse)
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Max-Age', '1000')
+            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
+            ;
+
     }
 
 }
