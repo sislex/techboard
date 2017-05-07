@@ -3,11 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Good;
+use App\Favorites;
 
 use Illuminate\Http\Request;
 
 class GoodsController extends Controller
 {
+    public function getAllFavorites(){
+        $input = \Request::all();
+        $input['user_id'] = 1;
+
+        $Favorites = new Favorites();
+        $goods_id = $Favorites->getAllFavorites($input);
+        $Good = new Good();
+        $goodResponse =$Good->getAllFavorites($goods_id);
+        return response()
+            ->json($goodResponse)
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Max-Age', '1000')
+            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
+            ;
+
+    }
+    
+    public function addToFavorites(){
+        $input = \Request::all();
+//        $input['user_id'] = 1;
+//        $input['good_id'] = 3;
+
+        $Favorites = new Favorites();
+        $goodResponse = $Favorites->addToFavorites($input);
+        return response()
+            ->json($goodResponse)
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Max-Age', '1000')
+            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token, X-CSRF-TOKEN')
+            ;
+
+    }
+
     public function getGoodJSON(){
         $input = \Request::all();
 

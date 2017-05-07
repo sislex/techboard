@@ -1,10 +1,23 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, URLSearchParams} from '@angular/http';
+import {RequestsService} from "./requests.service";
+import {GoodsService} from "./goods.service";
 
 @Injectable()
 export class GoodService {
 
-    constructor(private http:Http) {
+    private favorites: object[] = null;
+    
+    constructor(private http:Http,private requestsService: RequestsService, private goodsService: GoodsService) {}
+
+    public  addToFavorites(id, user_id){
+        return new Promise((resolve, reject) => {
+            this.requestsService.addToFavorites(id, user_id).then((favorites) => {
+                this.favorites = favorites;
+                this.goodsService.getAllFavorites(user_id).then();
+                resolve(this.favorites);
+            });
+        });
     }
 
     public getGood(id:string) {

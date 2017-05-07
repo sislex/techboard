@@ -10,7 +10,6 @@ export class CatalogService {
     constructor(private requestsService: RequestsService) { }
 
     public getAllCategories() {
-        console.log('service getAllCategories');
         return new Promise((resolve, reject) => {
             if(!this.catalog){
                 this.requestsService.getAllCategories().then((catalog) => {

@@ -20,11 +20,13 @@ class Good extends Model
         'old_price'
     ];
 
+    public function getAllFavorites($goods_id){
+        return $goodsFavorites = $this->whereIN('id', $goods_id)->get()->toArray();
+    }
     public function getGoodJSON(){
         return $this->get()->toArray();
     }
     public function getGoodsByCategoryId($category_id){
-        //Chasti_tela::where('nazvanie', '=', 'Руки')->update(['nazvanie' => 'Шеяqqq', 'poradkovii_nomer' => '1', 'funkcii' => 'werwer']);//Редактирование с помощью WHERE
         return $this->where('catalog_id', '=', $category_id )->get()->toArray();
     }
     public function getGoodById($id){
@@ -34,36 +36,17 @@ class Good extends Model
         return $this->where('user_id', '=', $user_id )->get()->toArray();
     }
     public function getEditGoodById($input){
-        return $this->find($input['id'])->update($input);//Редактирование только по ID
-//        if(isset($input['id'])){
-//            if(isset($input['title'])) {
-//                return $this->find($input['id'])->update($input);//Редактирование только по ID
-//            }
-//            else{
-//                return $this->find($input['id'])->update([
-//                    'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
-//                    'description' => $input['description'], 'text' => $input['text'], 'title' => '',
-//                    'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
-//                ]);//Редактирование только по ID
-//            }
-//        }
-//        else{
-//            if(isset($input['title'])){
-//                return $this->create([
-//                    'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
-//                    'description' => $input['description'], 'text' => $input['text'], 'title' => $input['title'],
-//                    'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
-//                ]);
-//            }
-//            else{
-//                return $this->create([
-//                    'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
-//                    'description' => $input['description'], 'text' => $input['text'],
-//                    'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
-//                ]);
-//            }
-//
-//        }
+        if(isset($input['id'])){
+            return $this->find($input['id'])->update($input);//Редактирование только по ID
+        }
+        else
+        {
+            return $this->create([
+                'name' => $input['name'], 'catalog_id' => $input['catalog_id'],'user_id' => $input['user_id'],
+                'description' => $input['description'], 'text' => $input['text'],
+                'video_link' => $input['video_link'], 'map' => $input['map'], 'price' => $input['price']
+            ]);
+        }
     }
 
     public function getDelGoodById($input){

@@ -9,10 +9,37 @@ export class RequestsService {
 
     constructor(private http: Http) { }
 
-    public getAllCategories(): Promise<object[]> {
-        console.log('request getAllCategories');
+    public getAllFavorites(id): Promise<object[]>{
         return new Promise((resolve, reject) =>{
+            var params = new URLSearchParams();
+            params.set('id', id);
+            
+            this.http.post('http://techboard/api/get-all-favorites', params.toString(), { headers: this.headers }).subscribe((data: Response) => {
+                resolve(data.json());
+            }, error => {
+                console.log(error);
+                reject(error);
+            });
+        });
+    }
+    
+    public addToFavorites(id, user_id): Promise<object[]>{
+        return new Promise((resolve, reject) =>{
+            var params = new URLSearchParams();
+            params.set('good_id', id);
+            params.set('user_id', user_id);
 
+            this.http.post('http://techboard/api/favorites', params.toString(), { headers: this.headers }).subscribe((data: Response) => {
+                resolve(data.json());
+            }, error => {
+                console.log(error);
+                reject(error);
+            });
+        });
+    }
+    
+    public getAllCategories(): Promise<object[]> {
+        return new Promise((resolve, reject) =>{
             var params = new URLSearchParams();
 
             this.http.post('http://techboard/api/catalog', params.toString(), { headers: this.headers }).subscribe((data: Response) => {
@@ -27,20 +54,13 @@ export class RequestsService {
 
     public registrationUser(name: string, email: string, password: string){
         return new Promise((resolve, reject) =>{
-            let headers = new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            });
-
+           
             var params = new URLSearchParams();
             params.set('name', name);
             params.set('email', email);
             params.set('password', password);
 
-            console.log(name);
-            console.log(email);
-            console.log(password);
-
-            this.http.post('http://techboard/api/registration', params.toString(), {headers: headers}).subscribe((data:Response) => {
+            this.http.post('http://techboard/api/registration', params.toString(), { headers: this.headers }).subscribe((data:Response) => {
                 resolve(data.json());
             }, error => {
                 console.log(error);

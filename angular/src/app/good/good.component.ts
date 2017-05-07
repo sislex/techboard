@@ -14,8 +14,11 @@ export class GoodComponent implements OnDestroy {
     private subscription:Subscription;
 
     private id;
+    private user_id: number = 1;
     private good;
     private catalog;
+    private favoriteColor = '#F5CF44';
+
 
     constructor(private goodService:GoodService, private catalogService: CatalogService, private activatedRoute:ActivatedRoute, private router:Router) {
         this.catalogService.getAllCategories().then((catalog) => {
@@ -31,7 +34,6 @@ export class GoodComponent implements OnDestroy {
     }
 
     private getCatalogNameById(catalogId): string {
-        console.log(this.catalog);
         let catalogName: string = '';
 
         if(this.catalog){
@@ -40,6 +42,12 @@ export class GoodComponent implements OnDestroy {
             catalogName = categoryObject.name;
         }
         return catalogName;
+    }
+
+    addToFavorites(id){
+        console.log("id: " + id);
+        this.goodService.addToFavorites(id, this.user_id);
+        
     }
 
     ngOnDestroy() {

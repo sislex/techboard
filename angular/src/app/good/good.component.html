@@ -10,13 +10,13 @@
                     </div>
                     <div class="single-listing-actions">
                         <div class="btn-group pull-right" role="group">
-                            <a href="#" class="btn btn-default" title="Save this car"><i class="fa fa-star-o"></i>
-                                <span>Save this car</span></a>
-                            <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-default"
-                               title="Request more info"><i class="fa fa-info"></i> <span>Request more info</span></a>
-                            <a href="javascript:void(0)" onclick="window.print();" class="btn btn-default"
+                            <button class="btn btn-default" title="Сохранить в избранное" (click)="addToFavorites(good.id)"><i [ngStyle]="{'color': 'blue'}" class="fa fa-star-o"></i>
+                                <span>Сохранить в избранное</span></button>
+                            <button data-toggle="modal" data-target="#infoModal" class="btn btn-default"
+                               title="Request more info"><i class="fa fa-info"></i> <span>Request more info</span></button>
+                            <button href="javascript:void(0)" onclick="window.print();" class="btn btn-default"
                                title="Print"><i
-                                    class="fa fa-print"></i> <span>Print</span></a>
+                                    class="fa fa-print"></i> <span>Print</span></button>
                         </div>
                         <div class="btn btn-info price">{{good.price}}</div>
                     </div>
