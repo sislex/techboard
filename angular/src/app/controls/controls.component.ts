@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 
 @Component({
     selector: 'app-controls',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ControlsComponent implements OnInit {
 
-    constructor() { }
+    private controlsVisible: boolean = false;
+
+    constructor(private _router: Router) {
+        this._router.events.subscribe(() => {
+            this.controlsVisible = (this._router.url.split('/')[1] === 'goods');
+        });
+    }
     
     ngOnInit() {
     }
