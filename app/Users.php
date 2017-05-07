@@ -19,10 +19,9 @@ class Users extends Model
     ];
 
     public function createUser($input){
-        return $input['name'];
-//        return $this->create([
-//            'name' => $input['name'], 'email' => $input['email'], 'password' => $input['password']
-//        ]);//Создание
+        return $this->create([
+            'name' => $input['name'], 'email' => $input['email'], 'password' => $input['password']
+        ]);//Создание
     }
 
     public function getUser($id){

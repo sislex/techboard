@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     public createUser(name: string, email: string, password: string, confirmPassword: string){
-        console.log(name + '; ' + email + '; ' + password + '; ' + confirmPassword + ';');
+        // console.log(name + '; ' + email + '; ' + password + '; ' + confirmPassword + ';');
         if(password === confirmPassword){
             this.requestsService.registrationUser(name, email, password);
         }

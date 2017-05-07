@@ -13,8 +13,8 @@ class UsersController extends Controller
         $input = \Request::all();
 
         $Users = new Users();
-        dd($input);
-        $goodResponse = $Users->createUser($input['name'], $input['email'], $input['password']);
+
+        $goodResponse = $Users->createUser($input);
         return response()
             ->json($goodResponse)
             ->header('Access-Control-Allow-Origin', '*')

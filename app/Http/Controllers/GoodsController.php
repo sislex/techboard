@@ -55,11 +55,24 @@ class GoodsController extends Controller
 
     public function editGood(){
         $input = \Request::all();
-        
+//        $input['id'] = 1;
+//        $input['name'] ='МТЗ-82 редактирование';
+//        $input['catalog_id'] ='2';
+//        $input['description'] ='МТЗ-82 «Белорус» представляет собой универсальный, пропашной, колесный, полноприводной трактор с малой кабиной, который выпускается на Минском тракторном заводе. Трактор зарекомендовал себя надежным и высокопроизводительным агрегатом, который отличается простотой в эксплуатации и обслуживании.редактирование';
+//        $input['id'] ='1';
+//        $input['map'] ='редактирование';
+//        $input['price'] ='80000';
+//        $input['text'] ='МТЗ-82 «Белорус» представляет собой универсальный, пропашной, колесный, полноприводной трактор с малой кабиной, который выпускается на Минском тракторном заводе. Трактор зарекомендовал себя надежным и высокопроизводительным агрегатом, который отличается простотой в эксплуатации и обслуживании.редактирование';
+//        $input['title'] =null;
+//        $input['user_id'] ='1';
+//        $input['video_link'] ='https://www.youtube.com/watch?v=E59TJy-xT68редактирование';
+
+
         $Good = new Good();
         $goodResponse = $Good->getEditGoodById($input);
         return response()
             ->json($goodResponse)
+//            ->json($input)
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
             ->header('Access-Control-Max-Age', '1000')
